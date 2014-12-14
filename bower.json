@@ -1,7 +1,0 @@
-{
-  "name": "js-tracks",
-  "private": true,
-  "dependencies": {
-    "jquery": "~2.1.1"
-  }
-}
