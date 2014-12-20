@@ -1,0 +1,17 @@
+{
+  "name": "js-tracks",
+  "description": "A collection of javascript learning tracks",
+  "version": "0.0.1",
+  "author": "montecruiseto",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^1.8.1",
+    "gulp": "^3.8.10",
+    "gulp-ruby-sass": "^0.7.1"
+  },
+  "keywords": [],
+  "repository": "https://github.com/montecruiseto/js-tracks",
+  "licenses": [
+    {}
+  ]
+}
