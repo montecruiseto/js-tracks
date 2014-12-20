@@ -1,0 +1,117 @@
+/**
+
+  @grids
+---------------------------------------------------------
+  layout/_grids.scss
+--------------------------------------------------------
+
+  Skyline uses a simple grid system.  It starts with
+  a wrapper div that can have a classname of .grid-wrap
+  or .gw for short.  Inside of that div, you'll nest
+  your grid units.  These are divs with classname of
+  either .grid or .g for short.
+
+  To specify the responsive behavior of the grid,
+  add width classes from layout/_widths.scss.
+
+  Example: Grid with responsive width classes
+  <div class="gw">
+    <div class="g sm-one-whole md-one-half  lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-third lg-one-fifth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-three-fifths xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-fifth    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+  </div>
+
+  For a grid wrap containing equally-sized grid units, like
+  a gallery of thumbnails for instance, use the responsive ups
+  classes from layout/_widths.scss. With these classes
+  applied to the .grid-wrap/.gw, you won't need to specify
+  widths on the individual grid units, just on the wrapper.
+
+  Example: Grid with responsive ups classes
+  <div class="gw two-up sm-three-up md-four-up lg-six-up">
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+  </div>
+  
+  NOTE: see some test styles at the bottom of this partial
+  Remove them if you don't need them.
+
+------------------------------------------------------ */
+
+
+
+
+
+// Grid configuration
+// -----------------------------------------------------
+//
+// Define the point at which grids no longer stack, but float
+// You might use a $breakpoint__* variable from _vars.scss or
+// any other value that works for you.
+$grid__float-at: $breakpoint__xs;
+//
+// Define the width of the gutters between grid units
+// You might use $unit from _vars.scss, or a relative value 
+// of $unit, like .5$unit for instance for small gutters.
+$grid__gutter-width: $unit;
+//
+// Define the amount of space at the bottom of a grid unit
+// when they are stacking (before they start to float)
+// You might choose $unit again.
+$grid__bottom-spacing-when-stacking: $unit;
+//
+// Define the amount of space at the bottom of a grid unit
+// when they are floating. It's often a good idea to make
+// this value equal to the gutter width.
+$grid__bottom-spacing-when-floating: $grid__gutter-width;
+
+
+
+// Grid Wrap
+.grid-wrap,
+.gw {
+  @include clearfix();
+  display: block;
+  // Sometimes, ul are used for grid wraps
+  list-style-type: none;
+  margin-bottom: -1*$grid__bottom-spacing-when-stacking;
+  @include bp-at-least($grid__float-at) {
+    margin: 0 0 -1*$grid__bottom-spacing-when-floating -1*$grid__gutter-width;
+  }
+}
+
+
+// Grid
+.grid,
+.g {
+  @include clearfix();
+  min-height: 1px;
+  position: relative;
+  padding-bottom: $grid__bottom-spacing-when-stacking;
+  display: block;
+  width: 100%;
+  @include bp-at-least($grid__float-at) {
+    padding: 0 0 $grid__bottom-spacing-when-floating $grid__gutter-width;
+    float: left;
+  }
+}
+

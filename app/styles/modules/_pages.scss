@@ -1,0 +1,34 @@
+/**
+
+  @pages
+--------------------------------------------------------
+  modules/_pages.scss
+--------------------------------------------------------
+
+  Pages contain content and can have styled headers
+  and footers if you choose.
+
+-----------------------------------------------------  */
+
+// The page wrap
+//
+.page {
+  // Add styles to the wrapper if you prefer
+}
+
+
+// The header
+//
+.page__header {
+  padding: 1*$unit 0;
+  margin-bottom: 1*$unit;
+  background: rgba(0,0,0,.025);
+  border-bottom: 1px solid $color__grey--light;
+}
+
+
+// The footer
+//
+.page__footer {
+
+}

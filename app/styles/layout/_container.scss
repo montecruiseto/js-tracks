@@ -1,0 +1,37 @@
+/**
+
+  @container
+--------------------------------------------------------
+  layout/_container.scss
+--------------------------------------------------------
+
+  The .container class is applied to restrict the
+  max-width of an element, usually a bit of content.
+
+  Often, you will place a .container div within another
+  element that has a background color. This gives you
+  a full-bleed background, but the content is contained
+  within the max-width.
+
+  Example: Container within a section
+  <section class="awesome-section-with-background-color">
+    <div class="container">
+      <p>Your content goes here... </p>
+    </div>
+  </section>
+
+------------------------------------------------------ */
+
+$container__max-width: 70em; // restricts width
+
+.container {
+  @include clearfix();
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $container__max-width;   
+  padding: 0 1.5*$unit;
+  @include bp-at-least($breakpoint__sm) {
+    padding: 0 3*$unit;
+  }
+}
+
