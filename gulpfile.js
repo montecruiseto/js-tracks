@@ -9,8 +9,8 @@ var reload = browserSync.reload;
 // Setup the default gulp task
 gulp.task('default', function() {
     gulp.src([
-            'app/index.html',
-            'app/styles/screen.css'
+            'source/index.html',
+            'source/styles/screen.css'
         ])
         .pipe(gulp.dest('build'));
 });
