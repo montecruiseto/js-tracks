@@ -6,25 +6,14 @@ var sass = require('gulp-ruby-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
-// Set up the sass task
-gulp.task('sass', function() {
-  return gulp.src('styles/screen.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('css'))
-    .pipe(reload({ stream:true }));
-});
+// Create an object to define the paths we need
+var paths = {
+ html: 'app/index.html',
+ build: 'build'
+};
 
-// watch files for changes and reload
-gulp.task('serve', function() {
-  browserSync({
-    server: {
-      baseDir: 'app'
-    }
-  });
-
-  gulp.watch('styles/*.scss', ['sass']);
-});
-
-gulp.task('default', function() {
-  // here be dragons
+// Setup the default gulp task
+gulp.task('default', function(){
+ gulp.src(paths.html)
+ .pipe(gulp.dest(paths.build));
 });
