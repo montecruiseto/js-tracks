@@ -1,0 +1,4104 @@
+/****
+
+  MAIN STYLESHEET for [* Site Name Here *]
+
+---------------------------------------------------------
+
+  BUILT WITH SKYLINE: EVOLVING CSS ARCHITECTURE
+
+  See README.md for info and credits
+
+
+
+---------------------------------------------------------
+
+  TABLE OF CONTENTS
+  @toc
+
+  - Base ............ foundations, mixins, functions, vars
+  - Elements ........ single elements
+  - Layout .......... layout objects like grids, containers  
+  - Modules ......... objects created by combining elements
+
+---------------------------------------------------------  */
+/***
+
+  @base
+---------------------------------------------------------
+
+  Your CSS begins with some global variables, a reset which
+  is basically Normalize, some mixins, and a print stylesheet.
+
+-----------------------------------------------------  */
+/**
+
+  @variables
+---------------------------------------------------------
+  base/_vars.scss
+--------------------------------------------------------
+
+  Global variables are defined here.  Define your colors,
+  spacing and grid settings.
+
+-----------------------------------------------------  */
+/* @colors
+--------------------------------------------------------
+
+  All color variables are defined here.
+
+  We use real color names here.  Although naming something
+  like 'brand' is in fact more generic and reusable, we've
+  found that you end up creating variables like $brand-2,
+  $brand-alt, $brand-complimentary etc.  While coding,
+  it's too easy to forget what those mean.
+
+  If the design changes drastically and the brand changes
+  from, let's say, blue to green, just do a global
+  find/replace - that's what text editors are for.
+
+------------------------------------------------------ */
+/* @breakpoints
+---------------------------------------------------------
+
+  Define global breakpoints as xs, sm, md, lg, xl, xxl
+
+--------------------------------------------------------- */
+/* @global spacing unit
+---------------------------------------------------------
+
+  Define an em value for $unit.  $unit is a helpful little
+  variable that serves to keep your spacing consistent.
+
+  Most often, 1 $unit is equal to your baseline height.  So
+  if your baseline height is 1.125ems (which is 18px), that's
+  the value of 1 $unit.
+
+--------------------------------------------------------- */
+/**
+
+  @reset
+---------------------------------------------------------
+  base/_reset.scss
+--------------------------------------------------------
+
+  This reset institutes the border-box box model and then
+  block and margin/padding resets.
+
+  Throughout Skyline, each partial has it's own resets.
+  This allows you to only use what you need.
+
+  Credit goes to Normalize
+  http://normalize.css v2.1.0 http://git.io/normalize
+
+--------------------------------------------------------- */
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary,
+audio,
+canvas,
+video {
+  display: block; }
+
+/**
+
+  @breakpoints mixin
+-----------------------------------------------------
+  base/_mixin-breakpoints.scss
+-----------------------------------------------------
+
+  This mixin makes using inline media queries easy.
+  Options include bp-at-least for min-width, bp-until
+  for max-width, and bp-between for min and max widths.
+
+  You can use your breakpoint vars, or any other value.
+
+  Usage: styles at medium breakpoint
+  .some-element {
+    @include bp-at-least($breakpoint__md){
+      your-styles: go-here;
+    }
+  }
+
+  Usage: styles at custom breakpoint
+  .another-element {
+    @include bp-until(83.45em){
+      your-styles: go-here;
+    }
+  }
+
+-----------------------------------------------------  */
+/**
+
+  @clearfix mixin
+---------------------------------------------------------
+  base/_clearfix.scss
+--------------------------------------------------------
+
+  Use @include clearfix(); in your CSS
+
+  Usage: clearfix mixin
+  .element-to-clearfix {
+    @include cleafix();
+  }
+
+
+--------------------------------------------------------- */
+/**
+
+  @font-face importer mixin
+-----------------------------------------------------------
+  _base/_mixin-font-face-importer.scss
+-----------------------------------------------------------
+
+  Use this mixin to embed a font
+
+  $font-name is used in your css in font-family declarations
+  $font-filepath-and-name is the location of your font
+  file and the filename WITHOUT the file extension.  The
+  extensions are added here in the mixin
+
+  Usage:
+  @include embed-font($font-name, $font-filepath-and-name);
+
+--------------------------------------------------------- */
+/**
+
+  @gradual media queries mixin
+--------------------------------------------------------
+  base/_mixin-gradual-media-queries.scss
+--------------------------------------------------------
+
+ The mixin takes arguments of start-width, start-fontsize,
+ end-width, and end-fontsize and then creates media queries
+ between those start and end points at another argument
+ value, increment-width.
+
+ Usage: Gradually increase the font size of the html
+ html {
+  @include gradual-queries(20em, 80%, 70em, 100%, 10em)
+ }
+
+ In the above usage, the html fontsize will start out at
+ 80% at 20em and end up at 100% at 70em - and the gradual
+ changes in the fontsize percentage will be calculated
+ at 10em intervals.
+
+ See http://codepen.io/jeffschram/pen/IixqA
+
+------------------------------------------------------ */
+/**
+
+  @fonts
+--------------------------------------------------------
+  base/_fonts.scss
+--------------------------------------------------------
+
+  Define the fonts used in this app and declare silent
+  classes to be used in your CSS.
+
+  If you are using a webfont that you're hosting, add 
+  the @embed-font() mixin from base/_mixin-font-face-importer.scs 
+  before you declare your fonts.
+
+  Usage: Create a font-family named "interstate-light" using a font at /fonts/interstate_light-webfont.woff (and other extensions)
+  @include embed-font("interstate-light", "/fonts/interstate_light-webfont");
+  
+  If you are using Google Fonts, you can add the
+  import code before you declare your fonts.
+
+  @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700);
+
+-------------------------------------------------------- */
+/* @sans
+--------------------------------------------------------
+
+  This is your basic sans font.
+
+  Usage: use sans regular on a p
+  p {
+    @extend %sans--regular;
+  }
+
+------------------------------------------------------ */
+body, .btn {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-style: normal; }
+
+/* @serif
+--------------------------------------------------------
+
+  This is your basic serif font.
+
+  Usage: use serif regular on a p
+  p {
+    @extend %serif--regular;
+  }
+
+-------------------------------------------------------- */
+input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
+  font-family: georgia, times;
+  font-weight: 300;
+  font-style: normal; }
+
+/**
+
+  @dev helpers
+--------------------------------------------------------
+  base/_dev-helpers.scss
+--------------------------------------------------------
+
+  Dev helpers highlight elements and/or show information
+  about the site and its current state (breakpoints, etc.)
+
+  These are made active by adding classes to the HTML
+  element. A JS system to toggle these classes is in
+  the works. 
+
+  This partial requires:
+  * base/_vars.scss
+  * base/_mixin-breakpoints.scss
+
+-------------------------------------------------------- */
+/* @highlight elements at breakpoint
+--------------------------------------------------------
+  
+  Highlight an element at certain breakpoints by changing
+  its color;
+
+  Add .dev--highlight to the HTML element to enable this.
+
+  Example: Highlight a title at MD breakpoint
+  <h1 class="md-highlight">I will change color at MD breakpoint</h1>
+
+-------------------------------------------------------- */
+@media screen and (min-width: 20em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .xs-highlight {
+    color: #94c1c8; } }
+@media screen and (min-width: 34.375em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .sm-highlight {
+    color: #a2bb60; } }
+@media screen and (min-width: 48em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .md-highlight {
+    color: #eb6d58; } }
+@media screen and (min-width: 64em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .lg-highlight {
+    color: #0d699c; } }
+@media screen and (min-width: 78.5em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .xl-highlight {
+    color: #c492bc; } }
+@media screen and (min-width: 100em) {
+  .dev--highlight-elements [class*="-highlight"] {
+    color: inherit; }
+  .dev--highlight-elements .xxl-highlight {
+    color: #76400b; } }
+
+/* @highlight grids in dev mode
+--------------------------------------------------------
+  
+  Indicate grids using responsive widths at certain breakpoints.
+
+  Add .dev--grids to the HTML element to enable this.
+
+  No extra classes are needed on the grids themselves.
+
+-------------------------------------------------------- */
+.dev--highlight-grids .g > *, .dev--highlight-grids .grid > * {
+  min-height: 4em;
+  background: rgba(193, 199, 208, 0.5);
+  border: 1px solid rgba(193, 199, 208, 0.5); }
+@media screen and (min-width: 20em) {
+  .dev--highlight-grids .g[class*="xs-"] > *, .dev--highlight-grids .grid[class*="xs-"] > * {
+    border-color: #94c1c8;
+    background: rgba(148, 193, 200, 0.25); } }
+@media screen and (min-width: 34.375em) {
+  .dev--highlight-grids .g[class*="sm-"] > *, .dev--highlight-grids .grid[class*="sm-"] > * {
+    border-color: #a2bb60;
+    background: rgba(162, 187, 96, 0.25); } }
+@media screen and (min-width: 48em) {
+  .dev--highlight-grids .g[class*="md-"] > *, .dev--highlight-grids .grid[class*="md-"] > * {
+    border-color: #eb6d58;
+    background: rgba(235, 109, 88, 0.25); } }
+@media screen and (min-width: 64em) {
+  .dev--highlight-grids .g[class*="lg-"] > *, .dev--highlight-grids .grid[class*="lg-"] > * {
+    border-color: #0d699c;
+    background: rgba(13, 105, 156, 0.25); } }
+@media screen and (min-width: 78.5em) {
+  .dev--highlight-grids .g[class*="xl-"] > *, .dev--highlight-grids .grid[class*="xl-"] > * {
+    border-color: #c492bc;
+    background: rgba(196, 146, 188, 0.25); } }
+@media screen and (min-width: 100em) {
+  .dev--highlight-grids .g[class*="xxl-"] > *, .dev--highlight-grids .grid[class*="xxl-"] > * {
+    border-color: #76400b;
+    background: rgba(118, 64, 11, 0.25); } }
+@media screen and (min-width: 20em) {
+  .dev--highlight-grids .gw[class*="xs-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="xs-"][class*="-up"] > * > * {
+    border-color: #94c1c8;
+    background: rgba(148, 193, 200, 0.25); } }
+@media screen and (min-width: 34.375em) {
+  .dev--highlight-grids .gw[class*="sm-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="sm-"][class*="-up"] > * > * {
+    border-color: #a2bb60;
+    background: rgba(162, 187, 96, 0.25); } }
+@media screen and (min-width: 48em) {
+  .dev--highlight-grids .gw[class*="md-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="md-"][class*="-up"] > * > * {
+    border-color: #eb6d58;
+    background: rgba(235, 109, 88, 0.25); } }
+@media screen and (min-width: 64em) {
+  .dev--highlight-grids .gw[class*="lg-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="lg-"][class*="-up"] > * > * {
+    border-color: #0d699c;
+    background: rgba(13, 105, 156, 0.25); } }
+@media screen and (min-width: 78.5em) {
+  .dev--highlight-grids .gw[class*="xl-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="xl-"][class*="-up"] > * > * {
+    border-color: #c492bc;
+    background: rgba(196, 146, 188, 0.25); } }
+@media screen and (min-width: 100em) {
+  .dev--highlight-grids .gw[class*="xxl-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="xxl-"][class*="-up"] > * > * {
+    border-color: #76400b;
+    background: rgba(118, 64, 11, 0.25); } }
+
+/* @show the current breakpoint
+--------------------------------------------------------
+  
+  Adds a badge to the bottom right of the body to show
+  the current breakpoint.
+
+  To enable this, add .dev--show-breakpoint to the HTML
+  element
+
+-------------------------------------------------------- */
+.dev--show-breakpoint body:before {
+  content: "-";
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 1em;
+  border: 1px solid #b0b3b3;
+  background: rgba(176, 179, 179, 0.25);
+  font-size: .25em;
+  line-height: 1;
+  color: #b0b3b3; }
+  @media screen and (min-width: 20em) {
+    .dev--show-breakpoint body:before {
+      content: "XS";
+      color: #94c1c8;
+      background: rgba(148, 193, 200, 0.25);
+      border-color: #94c1c8; } }
+  @media screen and (min-width: 34.375em) {
+    .dev--show-breakpoint body:before {
+      content: "SM";
+      color: #a2bb60;
+      background: rgba(162, 187, 96, 0.25);
+      border-color: #a2bb60; } }
+  @media screen and (min-width: 48em) {
+    .dev--show-breakpoint body:before {
+      content: "MD";
+      color: #eb6d58;
+      background: rgba(235, 109, 88, 0.25);
+      border-color: #eb6d58; } }
+  @media screen and (min-width: 64em) {
+    .dev--show-breakpoint body:before {
+      content: "LG";
+      color: #0d699c;
+      background: rgba(13, 105, 156, 0.25);
+      border-color: #0d699c; } }
+  @media screen and (min-width: 78.5em) {
+    .dev--show-breakpoint body:before {
+      content: "XL";
+      color: #c492bc;
+      background: rgba(196, 146, 188, 0.25);
+      border-color: #c492bc; } }
+  @media screen and (min-width: 100em) {
+    .dev--show-breakpoint body:before {
+      content: "XXL";
+      color: #76400b;
+      background: rgba(118, 64, 11, 0.25);
+      border-color: #76400b; } }
+
+/**
+
+  @print
+--------------------------------------------------------
+  base/_print.scss
+--------------------------------------------------------
+
+  Print Stylesheet from http://h5bp.com/r
+
+-----------------------------------------------------  */
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   CREDIT: HTML5 Boilerplate
+   ========================================================================== */
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster: h5bp.com/s */
+    box-shadow: none !important;
+    text-shadow: none !important; }
+
+  a,
+  a:visited {
+    text-decoration: underline; }
+
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: ""; }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+
+  thead {
+    display: table-header-group;
+    /* h5bp.com/t */ }
+
+  tr,
+  img {
+    page-break-inside: avoid; }
+
+  img {
+    max-width: 100% !important; }
+
+  @page {
+    margin: 0.5cm; }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3; }
+
+  h2,
+  h3 {
+    page-break-after: avoid; } }
+/***
+
+  @elements
+---------------------------------------------------------
+
+  Global styling of elements.
+
+---------------------------------------------------------  */
+/**
+
+  @body
+--------------------------------------------------------
+  elements/_body.scss
+--------------------------------------------------------
+
+  Body should contain the document's default font and
+  background color for the content, if that background
+  color is different than the html.
+
+------------------------------------------------------ */
+body {
+  line-height: 1.5;
+  color: #515554;
+  background: white; }
+
+/**
+
+  @buttons
+--------------------------------------------------------
+  elements/_buttons.scss
+--------------------------------------------------------
+
+  Buttons are a common UI component in sites/apps.  They
+  are usually either anchor, button, or input elements
+  with a classname of 'btn'.  They provide an easily
+  identified clickable target.
+
+  Buttons commonly have modifying classes that apply
+  specific styles.  Examples of these are .btn--large and
+  .btn--inline
+
+  Example: Buttons using anchors
+  <p><a href="#" class="btn">Regular Button</a></p>
+
+  Example: Buttons using buttons
+  <p><button class="btn">Regular Button</button></p>
+
+------------------------------------------------------ */
+button:focus, button:active {
+  outline: none;
+  box-shadow: none;
+  border: none; }
+
+.btn {
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  background: #515554;
+  color: white;
+  border: none;
+  font-size: 1.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: .225em;
+  padding: 1em 1.25em; }
+  .btn:hover, .btn:focus, .btn:active {
+    outline: none;
+    opacity: .85; }
+
+/* @btn--secondary
+--------------------------------------------------------
+
+  A btn modifier, secondary
+
+  Example: .btn--secondary
+  <a class="btn btn--secondary">Secondary button</a>
+
+------------------------------------------------------ */
+.btn--secondary {
+  background: none;
+  border: 1px solid white;
+  color: white; }
+
+/* @btn--large
+--------------------------------------------------------
+
+  A btn modifier, large
+
+  Example: .btn--large
+  <a class="btn btn--large">Large button</a>
+
+------------------------------------------------------ */
+@media screen and (min-width: 34.375em) {
+  .btn--large {
+    font-size: 1.25em;
+    padding: 1.25em 2.75em; } }
+
+/* @btn--inline
+--------------------------------------------------------
+
+  A btn modifier, if this button is in a paragraph or
+  in anything else that has a defined font-size, this
+  modifier will make the btn inherit the font-size of
+  the partent.
+
+  Example: .btn--inline
+  <p>Here's some text <a class="btn btn--inline">Cool button</a> text keeps going</p>
+
+------------------------------------------------------ */
+.btn--inline {
+  font-size: 1em; }
+
+/* @btn--block
+--------------------------------------------------------
+
+  A btn modifier - makes the button display block, 100%
+  width and aligns the text to the center.  Removes left
+  and right padding since the text is center aligned, it
+  is not needed.  Actually sometimes having the padding
+  on the left and right causes problems if the centered
+  text is quite long - so we just remove it.
+
+  Example: .btn--block
+  <a href="#" class="btn btn--block">Block button</a>
+
+------------------------------------------------------ */
+.btn--block {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-right: 0;
+  padding-left: 0; }
+
+/* @btn--icon
+--------------------------------------------------------
+
+  A btn modifier - makes the button display block, 100%
+  width and aligns the text to the center.  Removes left
+  and right padding since the text is center aligned, it
+  is not needed.  Actually sometimes having the padding
+  on the left and right causes problems if the centered
+  text is quite long - so we just remove it.
+
+  Example: .btn--icon
+  <button class="btn--icon ss-icon">Block button</button>
+
+------------------------------------------------------ */
+.btn--icon {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1em; }
+
+/**
+
+  @code
+--------------------------------------------------------
+  elements/_code.scss
+--------------------------------------------------------
+
+  Code elements like <code> and <pre>
+
+  Example: Code in a paragraph
+  <p>This is a cool paragraph about a classname called <code>.franz</code></p>
+
+
+-----------------------------------------------------  */
+code {
+  vertical-align: middle;
+  padding: .25em .5em;
+  background: rgba(193, 199, 208, 0.3); }
+
+/**
+
+  @forms
+---------------------------------------------------------
+  elements/_forms.scss
+--------------------------------------------------------
+
+  Base styles for all forms and form related elements
+
+  Below you'll set styles for all forms, and if you have
+  any specific kinds of forms, like a search form that you
+  create a classname of form--search, put that at the
+  bottom of this partial.
+
+  This scss partial is pretty big.  Here's how it is
+  organized.
+
+  * Base styling on form elements
+
+  * Styles for form & form modules
+
+
+--------------------------------------------------------- */
+/* @text inputs
+--------------------------------------------------------
+
+  Base styles for inputs
+
+  Example: Text Input
+  <input type="text" name="schramburger" placeholder="Your Name">
+
+  Inputs can use sizing classes, .input--s .input--l
+
+  Example: Text Small Input
+  <input class="input--s" type="text" name="schramburger" placeholder="Your Name">
+
+  Example: Text Input
+  <input class="input--l" type="text" name="schramburger" placeholder="Your Name">
+
+------------------------------------------------------ */
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+  width: 100%;
+  padding: 1em;
+  border: 1px solid #515554;
+  color: #515554; }
+  input:focus {
+    outline: none; }
+  input.input--s {
+    font-size: .5rem; }
+  input.input--l {
+    font-size: 1.5rem; }
+
+input::-webkit-input-placeholder {
+  color: #515554; }
+input:-moz-placeholder {
+  color: #515554; }
+input::-moz-placeholder {
+  color: #515554; }
+input:-ms-input-placeholder {
+  color: #515554; }
+
+input:focus::-webkit-input-placeholder {
+  opacity: .3; }
+input:focus:-moz-placeholder {
+  opacity: .3; }
+input:focus::-moz-placeholder {
+  opacity: .3; }
+input:focus:-ms-input-placeholder {
+  opacity: .3; }
+
+/* @select inputs
+--------------------------------------------------------
+
+  Base styling for all selects
+
+  Example: Select Input
+  <select name="schramburger">
+    <option value="value-1">Option 1</option>
+    <option value="value-2">Option 2</option>
+    <option value="value-3">Option 3</option>
+    <option value="value-4">Option 4</option>
+  </select>
+
+  Selects can have added sizing classes, .select--s and .select--l
+
+  Example: Small select
+  <select name="schramburger" class="select--s">
+    <option value="value-1">Option 1</option>
+    <option value="value-2">Option 2</option>
+    <option value="value-3">Option 3</option>
+    <option value="value-4">Option 4</option>
+  </select>
+
+  Example: Large select
+  <select name="schramburger" class="select--l">
+    <option value="value-1">Option 1</option>
+    <option value="value-2">Option 2</option>
+    <option value="value-3">Option 3</option>
+    <option value="value-4">Option 4</option>
+  </select>
+
+------------------------------------------------------ */
+select {
+  width: 100%;
+  font-size: 1rem; }
+  select.select--sm {
+    font-size: .5rem; }
+  select.select--lg {
+    font-size: 1.5rem; }
+
+/* @textareas
+--------------------------------------------------------
+
+  Base styling for textareas
+
+  Textareas can have .textarea--s or .textarea--l classes
+  for different sizes
+
+  Example: Textarea
+  <textarea name="schramburger">Hello, there.</textarea>
+
+  Example: Small Textarea
+  <textarea class="textarea--s" name="schramburger">Hello, there.</textarea>
+
+  Example: Large Textarea
+  <textarea class="textarea--l" name="schramburger">Hello, there.</textarea>
+
+------------------------------------------------------ */
+textarea {
+  width: 100%;
+  min-height: 6em;
+  padding: 1em;
+  border: solid 1px #515554; }
+  textarea:focus {
+    outline: none; }
+  textarea.textarea--s {
+    font-size: .5rem; }
+  textarea.textarea--l {
+    font-size: 1.5rem; }
+
+/* @radio inputs
+--------------------------------------------------------
+
+  Base styling for radio inputs.  Radios are surrounded
+  by a label for better click targets.
+
+  Example: Radio
+  <label class="label--radio" for="radio-1"><input id="radio-1" type="radio" value="yes"> Radio label</label>
+
+  Example: Radio with super-long label
+  <label class="label--radio" for="radio-3"><input id="radio-3" type="radio" value="yes"> Radio label Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, accusantium ipsum animi perspiciatis officiis iure voluptatibus corporis. Enim, officia, tempora vitae libero dolore sint voluptatum. Blanditiis odit laudantium minus repellat</label>
+
+
+------------------------------------------------------ */
+input[type=radio] {
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #444;
+  background: transparent; }
+  input[type=radio]:checked {
+    background: #222; }
+
+.label--radio {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding-left: 1em; }
+  .label--radio input {
+    position: absolute;
+    top: .7em;
+    left: 0; }
+
+/* @checkbox inputs
+--------------------------------------------------------
+
+  Base styling for checkbox inputs.  Checkboxes are surrounded
+  by a label for better click targets.
+
+  Example: Checkbox
+  <label class="label--checkbox" for="checkbox-1"><input id="checkbox-1" type="checkbox" value="yes"> Checkbox label</label>
+
+  Example: Checkbox with super-long label
+  <label class="label--checkbox" for="checkbox-3"><input id="checkbox-3" type="checkbox" value="yes"> Checkbox label Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, accusantium ipsum animi perspiciatis officiis iure voluptatibus corporis. Enim, officia, tempora vitae libero dolore sint voluptatum. Blanditiis odit laudantium minus repellat</label>
+
+
+------------------------------------------------------ */
+input[type=checkbox] {
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  border: 1px solid #444;
+  background: transparent; }
+  input[type=checkbox]:checked {
+    background: #222; }
+
+.label--checkbox {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding-left: 1em; }
+  .label--checkbox input {
+    position: absolute;
+    top: .7em;
+    left: 0; }
+
+/* @textareas
+--------------------------------------------------------
+
+  Base styling for textareas
+
+  Example: Textarea
+  <textarea name="schramburger">Hello, there.</textarea>
+
+------------------------------------------------------ */
+textarea {
+  width: 100%; }
+
+/* @labels
+--------------------------------------------------------
+
+  Base styling for labels
+
+  Example: label
+  <label>Don't label me, I'm a free spirit</labe>
+
+------------------------------------------------------ */
+label {
+  font-size: 1em;
+  font-weight: bold; }
+
+/* @form
+--------------------------------------------------------
+
+  Like the bootstrap convention, apply standard styling
+  on any form with the classname .form
+
+  This allows us to create modifier classnames like
+  .form--inline and .form--horizontal, which will be
+  laid out further below.
+
+------------------------------------------------------ */
+.form {
+  display: block;
+  padding: 2em;
+  border: 1px solid #888;
+  background: #eee; }
+
+/* @form-header
+--------------------------------------------------------
+
+  A form header usually consists of a title and some
+  copy.
+
+  Example: Form header
+  <header class="form__header">
+    <h2>Contact Us</h2>
+    <p>Use this form to contact us.  We love talking to
+    our customers.</p>
+  </header>
+
+-------------------------------------------------------- */
+.form__header {
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #888; }
+
+/* @fieldsets
+--------------------------------------------------------
+
+  Fieldsets group together related fields.
+
+  Example: Fieldset
+  <fieldset>
+    <legend>Personal Information</legend>
+    <article class="field">
+      <label class="field__label" for="exampleInput1">Your Name</label>
+      <input class="field__input="exampleInput1" type="text" required="required" placeholder="Your name">
+      <span class="field__feedback"></span>
+      <span class="field__hint"></span>
+    </article>
+    <article class="field">
+      <label class="field__label" for="exampleInput2">Your Email</label>
+      <input class="field__input="exampleInput2" type="email" required="required" placeholder="Your email">
+      <span class="field__feedback"></span>
+      <span class="field__hint">Must be a valid email address</span>
+    </article>
+  </fieldset>
+
+  Fieldsets are also nested inside other fieldsets.
+
+  Example: Nested Fieldsets
+  <fieldset>
+    <legend>Personal Information</legend>
+    <article class="field">
+      <label class="field__label" for="exampleInput31">Your Name</label>
+      <input class="field__input="exampleInput31" type="text" required="required" placeholder="Your name">
+      <span class="field__feedback"></span>
+      <span class="field__hint"></span>
+    </article>
+    <article class="field">
+      <label class="field__label" for="exampleInput32">Your Email</label>
+      <input class="field__input="exampleInput32" type="email" required="required" placeholder="Your email">
+      <span class="field__feedback"></span>
+      <span class="field__hint">Must be a valid email address</span>
+    </article>
+    <fieldset>
+      <legend>Address</legend>
+        <article class="field">
+          <label class="field__label" for="exampleInput33">Address 1</label>
+          <input class="field__input="exampleInput33" type="text" required="required" placeholder="Address 1">
+          <span class="field__feedback"></span>
+          <span class="field__hint">Must be a valid email address</span>
+        </article>
+        <article class="field">
+          <label class="field__label" for="exampleInput34">Address 2</label>
+          <input class="field__input="exampleInput34" type="text" required="required" placeholder="Address 2">
+          <span class="field__feedback"></span>
+          <span class="field__hint">Must be a valid email address</span>
+        </article>
+    </fieldset>
+  </fieldset>
+
+-------------------------------------------------------- */
+fieldset {
+  border: none; }
+
+/* @fields
+--------------------------------------------------------
+
+  A field is an article that contains the input and anything
+  related to the input.
+
+  Example: Field for a text input
+  <article class="field">
+    <label class="field__label" for="exampleInput1">Your Name</label>
+    <input class="field__input="exampleInput1" type="text" required="required" placeholder="Your name">
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+  Example: Field with hint
+  <article class="field">
+    <label class="field__label" for="exampleInput2">Your Email</label>
+    <input class="field__input="exampleInput2" type="email" required="required" placeholder="Your email">
+    <span class="field__feedback"></span>
+    <span class="field__hint">Must be a valid email address</span>
+  </article>
+
+  Example: Field with Error
+  <article class="field is-error">
+    <label class="field__label" for="exampleInput3">Your Email</label>
+    <input class="field__input="exampleInput3" type="email" required="required" placeholder="Your email">
+    <span class="field__feedback">Sorry, that email is in use.</span>
+    <span class="field__hint"></span>
+  </article>
+
+  Example: Field for a select input
+  <article class="field">
+    <label class="field__label" for="exampleInput4" >Select your favorite</label>
+    <select class="field__input input--select" id="exampleInput4"  name="favorite-food">
+      <option>Pizza</option>
+      <option>Tacos</option>
+      <option>Burgers</option>
+    </select>
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+  Example: Field for a textarea input
+  <article class="field">
+    <label class="field__label">Your Name</label>
+    <textarea class="field__input">Hello, there</textarea>
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+-------------------------------------------------------- */
+.field {
+  position: relative;
+  margin-bottom: 2em; }
+
+.field__label {
+  display: block; }
+
+.field__hint {
+  color: #888;
+  font-size: .75em;
+  padding: .25em 0;
+  font-style: italic; }
+
+.field__feedback {
+  display: none;
+  font-size: .75em;
+  padding: .25em .75em;
+  background: rgba(218, 35, 0, 0.3);
+  color: white; }
+
+.field.is-error .field__feedback {
+  display: block; }
+.field.is-error input {
+  border: 1px solid rgba(218, 35, 0, 0.3); }
+
+/* @input group
+--------------------------------------------------------
+
+  Group containing multiple inputs, helpful for lists
+  of radios or checkboxes.  Shown below in a field...
+
+  Example: Field with input group of radios
+  <article class="field">
+    <label class="field__label">Choose your favorite</label>
+    <div class="field__input-group">
+      <label class="label--radio" for="favorite-food-1"><input id="favorite-food-1" name="favorite-food" type="radio" value="pizza"> Pizza</label>
+      <label class="label--radio" for="favorite-food-2"><input id="favorite-food-2" name="favorite-food" type="radio" value="tacos"> Tacos</label>
+      <label class="label--radio" for="favorite-food-3"><input id="favorite-food-3" name="favorite-food" type="radio" value="burgers"> Burgers</label>
+    </div>
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+  Example: Field with input group of checkboxes
+  <article class="field">
+    <label class="field__label">Select your favorites</label>
+    <div class="field__input-group">
+      <label class="label--checkbox" for="favorite-food-4"><input id="favorite-food-4" name="favorite-food-alt" type="checkbox" value="pizza"> Pizza</label>
+      <label class="label--checkbox" for="favorite-food-5"><input id="favorite-food-5" name="favorite-food-alt" type="checkbox" value="tacos"> Tacos</label>
+      <label class="label--checkbox" for="favorite-food-6"><input id="favorite-food-6" name="favorite-food-alt" type="checkbox" value="burgers"> Burgers</label>
+    </div>
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+  Example: Field with input group list modifier
+  <article class="field">
+    <label class="field__label">Select your favorites</label>
+    <div class="field__input-group--list">
+      <label class="label--checkbox" for="favorite-food-7"><input id="favorite-food-7" name="favorite-food-alt2" type="checkbox" value="pizza"> Pizza</label>
+      <label class="label--checkbox" for="favorite-food-8"><input id="favorite-food-8" name="favorite-food-alt2" type="checkbox" value="tacos"> Tacos</label>
+      <label class="label--checkbox" for="favorite-food-9"><input id="favorite-food-9" name="favorite-food-alt2" type="checkbox" value="burgers"> Burgers</label>
+    </div>
+    <span class="field__feedback"></span>
+    <span class="field__hint"></span>
+  </article>
+
+------------------------------------------------------ */
+.field__input-group {
+  display: block; }
+  .field__input-group > * {
+    display: inline-block;
+    margin-right: .5em; }
+    .field__input-group > *:last-child {
+      margin-right: 0; }
+
+.field__input-group--list {
+  display: block; }
+  .field__input-group--list > * {
+    display: block;
+    margin: .5em 0; }
+    .field__input-group--list > *:last-child {
+      margin-bottom: 0; }
+
+/* @form action
+--------------------------------------------------------
+
+  Each form has an actions footer at the bottom to
+  submit the form
+
+  Example: Form Actions Footer
+  <footer class="form__actions">
+  <article class="field two-fiths">
+    <label class="field__label is-visually-hidden" for="exampleInput7" >Submit</label>
+    <input class="field__input btn btn--block" type="submit" id="exampleInput7" value="Submit">
+    <span  class="field__feedback"></span>
+    <span  class="field__hint"></span>
+  </article>
+  </footer>
+
+--------------------------------------------------------- */
+.form__actions {
+  padding-top: 1em;
+  margin-top: 2em;
+  border-top: 1px solid #888; }
+
+/**
+
+  @headings
+--------------------------------------------------------
+  elements/_headings.scss
+--------------------------------------------------------
+
+  We set any base styles for any headings that have
+  no classnames.
+
+  Example: Headings
+  <h1>This is an h1 heading</h1>
+  <h2>This is an h2 heading</h2>
+  <h3>This is an h3 heading</h3>
+  <h4>This is an h4 heading</h4>
+  <h5>This is an h5 heading</h5>
+  <h6>This is an h6 heading</h6>
+
+  Additionally, we add classnames so you
+  can apply the styling of, for instance, an h1 to an h2.
+
+  Example: H1 styled like an H3
+  <h1 class="h3">This is an h1 but looks like an h3</h1>
+
+------------------------------------------------------ */
+h1, .h1 {
+  margin-bottom: 1em; }
+
+h2, .h2 {
+  margin-bottom: 1em; }
+
+h3, .h3 {
+  margin-bottom: 1em; }
+
+h4, .h4 {
+  margin-bottom: 1em; }
+
+h5, .h5 {
+  margin-bottom: 1em; }
+
+h6, .h6 {
+  margin-bottom: 1em; }
+
+/**
+
+   @hr
+--------------------------------------------------------
+  elements/_hr.scss
+--------------------------------------------------------
+
+  Horizontal Rule
+
+  Example:
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  <hr>
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+-------------------------------------------------------- */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0; }
+
+/**
+
+   @html
+--------------------------------------------------------
+  elements/_html.scss
+--------------------------------------------------------
+
+  HTML should contain the site's default background color
+  and font-size
+
+------------------------------------------------------ */
+html {
+  font-size: 80%; }
+  @media (min-width: 20em) {
+    html {
+      font-size: 80%; } }
+  @media (min-width: 30em) {
+    html {
+      font-size: 83.33333%; } }
+  @media (min-width: 40em) {
+    html {
+      font-size: 86.66667%; } }
+  @media (min-width: 50em) {
+    html {
+      font-size: 90%; } }
+  @media (min-width: 60em) {
+    html {
+      font-size: 93.33333%; } }
+  @media (min-width: 70em) {
+    html {
+      font-size: 96.66667%; } }
+  @media (min-width: 80em) {
+    html {
+      font-size: 100%; } }
+
+* {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+/**
+
+  @images
+---------------------------------------------------------
+  elements/_images.scss
+--------------------------------------------------------
+
+  Base styling for images, plus some helpful utility
+  classes that modify images.
+
+  Note: You won't add any styling to these image classes,
+  these are just utility classes
+
+--------------------------------------------------------- */
+/* @images
+--------------------------------------------------------
+
+  Base Image Style is 100% width by default
+
+  Example: Image
+  <img src="http://fillmurray.com/600/300">
+
+------------------------------------------------------ */
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle; }
+
+/* @img--natural
+--------------------------------------------------------
+
+  Natural Images are 100% max-width, but their natural width by default
+
+  Example: Image, Natural Width
+  <img class="img--natural" src="http://fillmurray.com/600/300">
+
+------------------------------------------------------ */
+.img--natural {
+  width: auto; }
+
+/* @img--title
+--------------------------------------------------------
+
+  Title images fit within a heading/title element
+
+  Example: Image inside a title (.img--title)
+  <h1><img class="img--title" src="http://fillmurray.com/300/300"> Title Here versions of Lorem Ipsum.</h1>
+  <h2><img class="img--title" src="http://fillmurray.com/300/300"> Title Here versions of Lorem Ipsum.</h2>
+  <h3><img class="img--title" src="http://fillmurray.com/300/300"> Title Here versions of Lorem Ipsum.</h3>
+
+------------------------------------------------------ */
+.img--title {
+  height: 1em;
+  width: auto;
+  vertical-align: top; }
+
+/* @image placement
+--------------------------------------------------------
+
+  Here are a few helper classes to position images, particularly
+  helpful inside paragraphs.
+
+  Example: Image Right
+  <p><img class="img--right" src="http://fillmurray.com/400/300"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+  Example: Image, Natural Width
+  <p><img class="img--left" src="http://fillmurray.com/400/300"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+  Example: Image, Center
+  <p><img class="img--center" src="http://fillmurray.com/400/300"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+------------------------------------------------------ */
+.img--right {
+  width: auto;
+  float: right;
+  margin-bottom: 1.125em;
+  margin-left: 1.125em; }
+
+.img--left {
+  width: auto;
+  float: left;
+  margin-right: 1.125em;
+  margin-bottom: 1.125em; }
+
+.img--center {
+  width: auto;
+  display: block;
+  margin-right: auto;
+  margin-bottom: 1.125em;
+  margin-left: auto; }
+
+.img--right img,
+.img--left img,
+.img--center img {
+  width: auto; }
+
+/* @img--circle
+--------------------------------------------------------
+
+  Popular circle image for bios etc.
+
+  Example: Circle image
+  <img class="img--circle" src="http://fillmurray.com/400/400">
+
+------------------------------------------------------ */
+.img--circle {
+  border-radius: 50%; }
+
+/**
+
+  @icons
+---------------------------------------------------------
+  elements/_icons.scss
+--------------------------------------------------------
+
+  Your icon set may vary. In this partial, you may wish
+  to load in a font icon set and add all the associated
+  css that goes with it. This would be the case if you
+  were using something like Symbolset or IcoMoon for
+  example.
+
+--------------------------------------------------------- */
+/* @icon
+--------------------------------------------------------
+
+  This is a basic icon element. We set some basic
+  structural styles and display styles to get the ball
+  rolling.
+
+  Example: Open Icon
+  <i class="icon icon--open">&plus;</i>
+
+  Example: Close Icon
+  <i class="icon icon--close">&times;</i>
+
+------------------------------------------------------ */
+.icon {
+  color: inherit;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: middle;
+  font-size: 1em; }
+
+/**
+
+  @links
+--------------------------------------------------------
+  elements/_links.scss
+--------------------------------------------------------
+
+  Links, <a> etc. & Webkit tap highlight
+
+  Example: link
+  <p>Lorem Ipsum is simply <a href="#">dummy text</a> of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+-------------------------------------------------------- */
+/* @anchors
+--------------------------------------------------------
+
+  Anchors will have this base styling
+
+------------------------------------------------------ */
+a {
+  color: inherit; }
+  a:hover, a:focus {
+    opacity: .75; }
+
+/* @webkit-tap-highlight
+--------------------------------------------------------
+
+  Declare the webkit tap highlight style
+
+------------------------------------------------------ */
+body {
+  -webkit-tap-highlight-color: rba(0, 0, 0, 0.35); }
+
+/**
+
+  @lists
+--------------------------------------------------------
+  elements/_lists.scss
+--------------------------------------------------------
+
+  Structure for lists
+
+  Example: Unordered List
+  <ul>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>
+      <ul>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+      </ul>
+    </li>
+  </ul>
+
+  Example: Ordered List
+  <ol>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>List item here</li>
+    <li>
+      <ol>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+        <li>Nested Item</li>
+      </ul>
+    </li>
+  </ol>
+
+-------------------------------------------------------- */
+ul,
+ol {
+  padding-left: 0;
+  margin-left: 1.125em;
+  margin-bottom: 1.125em; }
+  ul li,
+  ol li {
+    line-height: 2; }
+
+/**
+
+  @quotes
+--------------------------------------------------------
+  elements/_quotes.scss
+--------------------------------------------------------
+
+  Blockquotes and pull quotes
+
+-----------------------------------------------------  */
+/* @blockquote
+--------------------------------------------------------
+
+  Example:
+  <blockquote>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    <cite><a href="http://foo.com">The source</a></cite>
+  </blockquote>
+
+-------------------------------------------------------- */
+/* @pull-quote
+--------------------------------------------------------
+
+  Large quotes pulled from body text.
+
+  Example:
+  <blockquote class="pull-quote">
+    <p>This is an awesome pull quote!</p>
+  </blockquote>
+
+-------------------------------------------------------- */
+/**
+
+  @text
+--------------------------------------------------------
+  elements/_text.scss
+--------------------------------------------------------
+
+  Some basic styles to paragraphs and
+  inline styles
+
+-----------------------------------------------------  */
+/* @paragraphs
+--------------------------------------------------------
+
+  Example: Paragraphs
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+--------------------------------------------------------  */
+p {
+  margin-bottom: 1em;
+  line-height: 1.40625em; }
+
+/* @inline
+--------------------------------------------------------
+
+  Common inline elements
+
+  Example: inline elements
+  <p>Lorem Ipsum is <b>bold</b> text of the <strong>strong</strong> printing and typesetting industry. Lorem Ipsum is <i>italic</i> simply dummy text <em>emphasized</em> of the printing and typesetting industry.</p<
+
+-------------------------------------------------------- */
+b,
+strong {
+  font-weight: bold; }
+
+i,
+em {
+  font-style: italic; }
+
+  /***
+
+  @layout
+---------------------------------------------------------
+
+  A large portion of CSS is structural layout. You will use
+  these helpers to create the scaffolding that will support
+  the elements that make up your site.
+
+---------------------------------------------------------  */
+/**
+
+  @container
+--------------------------------------------------------
+  layout/_container.scss
+--------------------------------------------------------
+
+  The .container class is applied to restrict the
+  max-width of an element, usually a bit of content.
+
+  Often, you will place a .container div within another
+  element that has a background color. This gives you
+  a full-bleed background, but the content is contained
+  within the max-width.
+
+  Example: Container within a section
+  <section class="awesome-section-with-background-color">
+    <div class="container">
+      <p>Your content goes here... </p>
+    </div>
+  </section>
+
+------------------------------------------------------ */
+.container {
+  zoom: 1;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 70em;
+  padding: 0 1.6875em; }
+  .container:before, .container:after {
+    content: " ";
+    display: table; }
+  .container:after {
+    clear: both; }
+  @media screen and (min-width: 34.375em) {
+    .container {
+      padding: 0 3.375em; } }
+
+/**
+
+  @grids
+---------------------------------------------------------
+  layout/_grids.scss
+--------------------------------------------------------
+
+  Skyline uses a simple grid system.  It starts with
+  a wrapper div that can have a classname of .grid-wrap
+  or .gw for short.  Inside of that div, you'll nest
+  your grid units.  These are divs with classname of
+  either .grid or .g for short.
+
+  To specify the responsive behavior of the grid,
+  add width classes from layout/_widths.scss.
+
+  Example: Grid with responsive width classes
+  <div class="gw">
+    <div class="g sm-one-whole md-one-half  lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-third    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-third lg-one-fifth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-three-fifths xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-fifth    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-whole md-one-third lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+    <div class="g sm-one-half  md-one-half  lg-one-sixth    xl-one-twelfth">...</div>
+  </div>
+
+  For a grid wrap containing equally-sized grid units, like
+  a gallery of thumbnails for instance, use the responsive ups
+  classes from layout/_widths.scss. With these classes
+  applied to the .grid-wrap/.gw, you won't need to specify
+  widths on the individual grid units, just on the wrapper.
+
+  Example: Grid with responsive ups classes
+  <div class="gw two-up sm-three-up md-four-up lg-six-up">
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+    <div class="g">...</div>
+  </div>
+  
+  NOTE: see some test styles at the bottom of this partial
+  Remove them if you don't need them.
+
+------------------------------------------------------ */
+.grid-wrap,
+.gw {
+  zoom: 1;
+  display: block;
+  list-style-type: none;
+  margin-bottom: -1.125em; }
+  .grid-wrap:before, .grid-wrap:after,
+  .gw:before,
+  .gw:after {
+    content: " ";
+    display: table; }
+  .grid-wrap:after,
+  .gw:after {
+    clear: both; }
+  @media screen and (min-width: 20em) {
+    .grid-wrap,
+    .gw {
+      margin: 0 0 -1.125em -1.125em; } }
+
+.grid,
+.g {
+  zoom: 1;
+  min-height: 1px;
+  position: relative;
+  padding-bottom: 1.125em;
+  display: block;
+  width: 100%; }
+  .grid:before, .grid:after,
+  .g:before,
+  .g:after {
+    content: " ";
+    display: table; }
+  .grid:after,
+  .g:after {
+    clear: both; }
+  @media screen and (min-width: 20em) {
+    .grid,
+    .g {
+      padding: 0 0 1.125em 1.125em;
+      float: left; } }
+
+/**
+
+  @hide
+---------------------------------------------------------
+  layout/_hide.scss
+--------------------------------------------------------
+
+  Utility state classes to hide things in different ways
+
+--------------------------------------------------------- */
+.is-hidden {
+  display: none !important;
+  visibility: hidden !important; }
+
+.is-visually-hidden {
+  position: absolute;
+  left: -9999%;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0; }
+
+@media screen and (min-width: 20em) {
+  .hide__xs {
+    display: none; } }
+@media screen and (min-width: 34.375em) {
+  .hide__sm {
+    display: none; } }
+@media screen and (min-width: 48em) {
+  .hide__md {
+    display: none; } }
+@media screen and (min-width: 64em) {
+  .hide__lg {
+    display: none; } }
+@media screen and (min-width: 78.5em) {
+  .hide__xl {
+    display: none; } }
+/**
+
+  @media
+--------------------------------------------------------
+  layout/_media.scss
+--------------------------------------------------------
+
+  The 'media' object is a common pattern in OOCSS.
+  It consists of a wrapper element with a classname of
+  .media and then two child elements, one that contains
+  an image or video that is floated, and the other
+  contains text.
+
+  This used commonly in bios, or comments where you
+  have an avatar to one site, and the comment next to it.
+
+  Source: http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+
+-----------------------------------------------------  */
+/* @media objects
+---------------------------------------------------------
+
+  Example: Media object, left
+  <article class="media">
+    <div class="media__left one-fifth">
+      <img src="http://fillmurray.com/300/300">
+    </div>
+    <div class="media__body">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    </div>
+  </article>
+
+  Example: Media object, right
+  <article class="media">
+    <div class="media__right one-fifth">
+      <img src="http://fillmurray.com/300/300">
+    </div>
+    <div class="media__body">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    </div>
+  </article>
+
+---------------------------------------------------------  */
+.media {
+  display: block;
+  zoom: 1;
+  margin-bottom: 1em; }
+  .media:before, .media:after {
+    content: " ";
+    display: table; }
+  .media:after {
+    clear: both; }
+
+.media__left {
+  float: left;
+  margin-right: 1em; }
+
+.media__right {
+  float: right;
+  margin-left: 1em; }
+
+.media__left img,
+.media__right img {
+  display: block; }
+
+.media__body {
+  overflow: hidden; }
+
+.media__body,
+.media__body > :last-child {
+  margin-bottom: 0; }
+
+/**
+
+  @ups
+--------------------------------------------------------
+  layout/_ups.scss
+--------------------------------------------------------
+
+  UPS?
+
+  Yep, ups.  These are global classes that will set
+  their direct children to a specific width.  You will
+  mainly use these in grids, and maybe with tabs or
+  navigations.
+
+  For instance: four-up will set each child to 25%
+
+  Set the ups configuration variables below in this partial
+  to specify how many or how few classes you want available
+  in your project.
+
+  Example: Ups and grids
+  <div class="gw two-up">
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+  </div><!--/gw-->
+  <div class="gw three-up">
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+  </div><!--/gw-->
+
+  Ups work like widths in that they have responsive behavior.  If
+  you prepend an up class with a responsive prefix, like (s for small
+  or m for medium) the behaviour will only kick in at those
+  viewports.
+
+  For example, if you want your gallery to be two-up at the smallest
+  viewport, four-up at medium, six-up at large, and eight-up on the largest then use
+  this.
+
+  Example: Responsive Ups
+  <div class="gw two-up m-four-up l-six-up xl-eight-up">
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+    <div class="g"><img src="http://fillmurray.com/500/300"></div>
+  </div><!--/gw-->
+  
+  
+
+-----------------------------------------------------  */
+/*
+  
+  Widths at default Viewport 
+
+---------------------------------------------------- */
+.one-up > * {
+  width: 100%; }
+
+.two-up > * {
+  width: 50%; }
+
+.three-up > * {
+  width: 33.33333%; }
+
+.four-up > * {
+  width: 25%; }
+
+.five-up > * {
+  width: 20%; }
+
+.six-up > * {
+  width: 16.66667%; }
+
+.seven-up > * {
+  width: 14.28571%; }
+
+.eight-up > * {
+  width: 12.5%; }
+
+.nine-up > * {
+  width: 11.11111%; }
+
+.ten-up > * {
+  width: 10%; }
+
+.eleven-up > * {
+  width: 9.09091%; }
+
+.twelve-up > * {
+  width: 8.33333%; }
+
+/* 
+  
+  Responsive ups at $breakpoint__xs
+
+---------------------------------------------------- */
+@media screen and (min-width: 20em) {
+  .xs-one-up > * {
+    width: 100%; }
+
+  .xs-two-up > * {
+    width: 50%; }
+
+  .xs-three-up > * {
+    width: 33.33333%; }
+
+  .xs-four-up > * {
+    width: 25%; }
+
+  .xs-five-up > * {
+    width: 20%; }
+
+  .xs-six-up > * {
+    width: 16.66667%; }
+
+  .xs-seven-up > * {
+    width: 14.28571%; }
+
+  .xs-eight-up > * {
+    width: 12.5%; }
+
+  .xs-nine-up > * {
+    width: 11.11111%; }
+
+  .xs-ten-up > * {
+    width: 10%; }
+
+  .xs-eleven-up > * {
+    width: 9.09091%; }
+
+  .xs-twelve-up > * {
+    width: 8.33333%; } }
+/* 
+  
+  Responsive ups at $breakpoint__sm
+
+---------------------------------------------------- */
+@media screen and (min-width: 34.375em) {
+  .sm-one-up > * {
+    width: 100%; }
+
+  .sm-two-up > * {
+    width: 50%; }
+
+  .sm-three-up > * {
+    width: 33.33333%; }
+
+  .sm-four-up > * {
+    width: 25%; }
+
+  .sm-five-up > * {
+    width: 20%; }
+
+  .sm-six-up > * {
+    width: 16.66667%; }
+
+  .sm-seven-up > * {
+    width: 14.28571%; }
+
+  .sm-eight-up > * {
+    width: 12.5%; }
+
+  .sm-nine-up > * {
+    width: 11.11111%; }
+
+  .sm-ten-up > * {
+    width: 10%; }
+
+  .sm-eleven-up > * {
+    width: 9.09091%; }
+
+  .sm-twelve-up > * {
+    width: 8.33333%; } }
+/* 
+  
+  Responsive ups at $breakpoint__md
+
+---------------------------------------------------- */
+@media screen and (min-width: 48em) {
+  .md-one-up > * {
+    width: 100%; }
+
+  .md-two-up > * {
+    width: 50%; }
+
+  .md-three-up > * {
+    width: 33.33333%; }
+
+  .md-four-up > * {
+    width: 25%; }
+
+  .md-five-up > * {
+    width: 20%; }
+
+  .md-six-up > * {
+    width: 16.66667%; }
+
+  .md-seven-up > * {
+    width: 14.28571%; }
+
+  .md-eight-up > * {
+    width: 12.5%; }
+
+  .md-nine-up > * {
+    width: 11.11111%; }
+
+  .md-ten-up > * {
+    width: 10%; }
+
+  .md-eleven-up > * {
+    width: 9.09091%; }
+
+  .md-twelve-up > * {
+    width: 8.33333%; } }
+/* 
+  
+  Responsive ups at $breakpoint__lg
+
+---------------------------------------------------- */
+@media screen and (min-width: 64em) {
+  .lg-one-up > * {
+    width: 100%; }
+
+  .lg-two-up > * {
+    width: 50%; }
+
+  .lg-three-up > * {
+    width: 33.33333%; }
+
+  .lg-four-up > * {
+    width: 25%; }
+
+  .lg-five-up > * {
+    width: 20%; }
+
+  .lg-six-up > * {
+    width: 16.66667%; }
+
+  .lg-seven-up > * {
+    width: 14.28571%; }
+
+  .lg-eight-up > * {
+    width: 12.5%; }
+
+  .lg-nine-up > * {
+    width: 11.11111%; }
+
+  .lg-ten-up > * {
+    width: 10%; }
+
+  .lg-eleven-up > * {
+    width: 9.09091%; }
+
+  .lg-twelve-up > * {
+    width: 8.33333%; } }
+/* 
+  
+  Responsive ups at $breakpoint__xl
+
+---------------------------------------------------- */
+@media screen and (min-width: 78.5em) {
+  .xl-one-up > * {
+    width: 100%; }
+
+  .xl-two-up > * {
+    width: 50%; }
+
+  .xl-three-up > * {
+    width: 33.33333%; }
+
+  .xl-four-up > * {
+    width: 25%; }
+
+  .xl-five-up > * {
+    width: 20%; }
+
+  .xl-six-up > * {
+    width: 16.66667%; }
+
+  .xl-seven-up > * {
+    width: 14.28571%; }
+
+  .xl-eight-up > * {
+    width: 12.5%; }
+
+  .xl-nine-up > * {
+    width: 11.11111%; }
+
+  .xl-ten-up > * {
+    width: 10%; }
+
+  .xl-eleven-up > * {
+    width: 9.09091%; }
+
+  .xl-twelve-up > * {
+    width: 8.33333%; } }
+/* 
+  
+  Responsive ups at $breakpoint__xxl
+
+---------------------------------------------------- */
+@media screen and (min-width: 100em) {
+  .xxl-one-up > * {
+    width: 100%; }
+
+  .xxl-two-up > * {
+    width: 50%; }
+
+  .xxl-three-up > * {
+    width: 33.33333%; }
+
+  .xxl-four-up > * {
+    width: 25%; }
+
+  .xxl-five-up > * {
+    width: 20%; }
+
+  .xxl-six-up > * {
+    width: 16.66667%; }
+
+  .xxl-seven-up > * {
+    width: 14.28571%; }
+
+  .xxl-eight-up > * {
+    width: 12.5%; }
+
+  .xxl-nine-up > * {
+    width: 11.11111%; }
+
+  .xxl-ten-up > * {
+    width: 10%; }
+
+  .xxl-eleven-up > * {
+    width: 9.09091%; }
+
+  .xxl-twelve-up > * {
+    width: 8.33333%; } }
+/**
+
+  @widths
+---------------------------------------------------------
+  layout/_widths.scss
+--------------------------------------------------------
+
+  Global Width Classes like .one-third or .seven-twelfths
+  and responsive widths like .sm-one-third or .xl-one-half
+
+  If you append the width class with a size indicator, the
+  size will only be applied if the viewport is at least
+  at that breakpoint size.
+
+  Set the widths configuration variables below in this partial
+  to specify how many or how few classes you want available
+  in your project.
+
+  Requires:
+  * base/_vars.scss and the breakpoint mixin from
+  * base/_mixin-breakpoints.scss
+
+---------------------------------------------------------  */
+/*
+  
+  Widths at default Viewport 
+
+---------------------------------------------------- */
+.one-whole {
+  width: 100%; }
+
+.one-half {
+  width: 50%; }
+
+.two-halves {
+  width: 100%; }
+
+.one-third {
+  width: 33.33333%; }
+
+.two-thirds {
+  width: 66.66667%; }
+
+.three-thirds {
+  width: 100%; }
+
+.one-fourth {
+  width: 25%; }
+
+.two-fourths {
+  width: 50%; }
+
+.three-fourths {
+  width: 75%; }
+
+.four-fourths {
+  width: 100%; }
+
+.one-fifth {
+  width: 20%; }
+
+.two-fifths {
+  width: 40%; }
+
+.three-fifths {
+  width: 60%; }
+
+.four-fifths {
+  width: 80%; }
+
+.five-fifths {
+  width: 100%; }
+
+.one-sixth {
+  width: 16.66667%; }
+
+.two-sixths {
+  width: 33.33333%; }
+
+.three-sixths {
+  width: 50%; }
+
+.four-sixths {
+  width: 66.66667%; }
+
+.five-sixths {
+  width: 83.33333%; }
+
+.six-sixths {
+  width: 100%; }
+
+.one-seventh {
+  width: 14.28571%; }
+
+.two-sevenths {
+  width: 28.57143%; }
+
+.three-sevenths {
+  width: 42.85714%; }
+
+.four-sevenths {
+  width: 57.14286%; }
+
+.five-sevenths {
+  width: 71.42857%; }
+
+.six-sevenths {
+  width: 85.71429%; }
+
+.seven-sevenths {
+  width: 100%; }
+
+.one-eighth {
+  width: 12.5%; }
+
+.two-eighths {
+  width: 25%; }
+
+.three-eighths {
+  width: 37.5%; }
+
+.four-eighths {
+  width: 50%; }
+
+.five-eighths {
+  width: 62.5%; }
+
+.six-eighths {
+  width: 75%; }
+
+.seven-eighths {
+  width: 87.5%; }
+
+.eight-eighths {
+  width: 100%; }
+
+.one-ninth {
+  width: 11.11111%; }
+
+.two-ninths {
+  width: 22.22222%; }
+
+.three-ninths {
+  width: 33.33333%; }
+
+.four-ninths {
+  width: 44.44444%; }
+
+.five-ninths {
+  width: 55.55556%; }
+
+.six-ninths {
+  width: 66.66667%; }
+
+.seven-ninths {
+  width: 77.77778%; }
+
+.eight-ninths {
+  width: 88.88889%; }
+
+.nine-ninths {
+  width: 100%; }
+
+.one-tenth {
+  width: 10%; }
+
+.two-tenths {
+  width: 20%; }
+
+.three-tenths {
+  width: 30%; }
+
+.four-tenths {
+  width: 40%; }
+
+.five-tenths {
+  width: 50%; }
+
+.six-tenths {
+  width: 60%; }
+
+.seven-tenths {
+  width: 70%; }
+
+.eight-tenths {
+  width: 80%; }
+
+.nine-tenths {
+  width: 90%; }
+
+.ten-tenths {
+  width: 100%; }
+
+.one-eleventh {
+  width: 9.09091%; }
+
+.two-elevenths {
+  width: 18.18182%; }
+
+.three-elevenths {
+  width: 27.27273%; }
+
+.four-elevenths {
+  width: 36.36364%; }
+
+.five-elevenths {
+  width: 45.45455%; }
+
+.six-elevenths {
+  width: 54.54545%; }
+
+.seven-elevenths {
+  width: 63.63636%; }
+
+.eight-elevenths {
+  width: 72.72727%; }
+
+.nine-elevenths {
+  width: 81.81818%; }
+
+.ten-elevenths {
+  width: 90.90909%; }
+
+.eleven-elevenths {
+  width: 100%; }
+
+.one-twelfth {
+  width: 8.33333%; }
+
+.two-twelfths {
+  width: 16.66667%; }
+
+.three-twelfths {
+  width: 25%; }
+
+.four-twelfths {
+  width: 33.33333%; }
+
+.five-twelfths {
+  width: 41.66667%; }
+
+.six-twelfths {
+  width: 50%; }
+
+.seven-twelfths {
+  width: 58.33333%; }
+
+.eight-twelfths {
+  width: 66.66667%; }
+
+.nine-twelfths {
+  width: 75%; }
+
+.ten-twelfths {
+  width: 83.33333%; }
+
+.eleven-twelfths {
+  width: 91.66667%; }
+
+.twelve-twelfths {
+  width: 100%; }
+
+/* 
+  
+  Responsive widths at $breakpoint__sm
+
+---------------------------------------------------- */
+@media screen and (min-width: 34.375em) {
+  .sm-one-whole {
+    width: 100%; }
+
+  .sm-one-half {
+    width: 50%; }
+
+  .sm-two-halves {
+    width: 100%; }
+
+  .sm-one-third {
+    width: 33.33333%; }
+
+  .sm-two-thirds {
+    width: 66.66667%; }
+
+  .sm-three-thirds {
+    width: 100%; }
+
+  .sm-one-fourth {
+    width: 25%; }
+
+  .sm-two-fourths {
+    width: 50%; }
+
+  .sm-three-fourths {
+    width: 75%; }
+
+  .sm-four-fourths {
+    width: 100%; }
+
+  .sm-one-fifth {
+    width: 20%; }
+
+  .sm-two-fifths {
+    width: 40%; }
+
+  .sm-three-fifths {
+    width: 60%; }
+
+  .sm-four-fifths {
+    width: 80%; }
+
+  .sm-five-fifths {
+    width: 100%; }
+
+  .sm-one-sixth {
+    width: 16.66667%; }
+
+  .sm-two-sixths {
+    width: 33.33333%; }
+
+  .sm-three-sixths {
+    width: 50%; }
+
+  .sm-four-sixths {
+    width: 66.66667%; }
+
+  .sm-five-sixths {
+    width: 83.33333%; }
+
+  .sm-six-sixths {
+    width: 100%; }
+
+  .sm-one-seventh {
+    width: 14.28571%; }
+
+  .sm-two-sevenths {
+    width: 28.57143%; }
+
+  .sm-three-sevenths {
+    width: 42.85714%; }
+
+  .sm-four-sevenths {
+    width: 57.14286%; }
+
+  .sm-five-sevenths {
+    width: 71.42857%; }
+
+  .sm-six-sevenths {
+    width: 85.71429%; }
+
+  .sm-seven-sevenths {
+    width: 100%; }
+
+  .sm-one-eighth {
+    width: 12.5%; }
+
+  .sm-two-eighths {
+    width: 25%; }
+
+  .sm-three-eighths {
+    width: 37.5%; }
+
+  .sm-four-eighths {
+    width: 50%; }
+
+  .sm-five-eighths {
+    width: 62.5%; }
+
+  .sm-six-eighths {
+    width: 75%; }
+
+  .sm-seven-eighths {
+    width: 87.5%; }
+
+  .sm-eight-eighths {
+    width: 100%; }
+
+  .sm-one-ninth {
+    width: 11.11111%; }
+
+  .sm-two-ninths {
+    width: 22.22222%; }
+
+  .sm-three-ninths {
+    width: 33.33333%; }
+
+  .sm-four-ninths {
+    width: 44.44444%; }
+
+  .sm-five-ninths {
+    width: 55.55556%; }
+
+  .sm-six-ninths {
+    width: 66.66667%; }
+
+  .sm-seven-ninths {
+    width: 77.77778%; }
+
+  .sm-eight-ninths {
+    width: 88.88889%; }
+
+  .sm-nine-ninths {
+    width: 100%; }
+
+  .sm-one-tenth {
+    width: 10%; }
+
+  .sm-two-tenths {
+    width: 20%; }
+
+  .sm-three-tenths {
+    width: 30%; }
+
+  .sm-four-tenths {
+    width: 40%; }
+
+  .sm-five-tenths {
+    width: 50%; }
+
+  .sm-six-tenths {
+    width: 60%; }
+
+  .sm-seven-tenths {
+    width: 70%; }
+
+  .sm-eight-tenths {
+    width: 80%; }
+
+  .sm-nine-tenths {
+    width: 90%; }
+
+  .sm-ten-tenths {
+    width: 100%; }
+
+  .sm-one-eleventh {
+    width: 9.09091%; }
+
+  .sm-two-elevenths {
+    width: 18.18182%; }
+
+  .sm-three-elevenths {
+    width: 27.27273%; }
+
+  .sm-four-elevenths {
+    width: 36.36364%; }
+
+  .sm-five-elevenths {
+    width: 45.45455%; }
+
+  .sm-six-elevenths {
+    width: 54.54545%; }
+
+  .sm-seven-elevenths {
+    width: 63.63636%; }
+
+  .sm-eight-elevenths {
+    width: 72.72727%; }
+
+  .sm-nine-elevenths {
+    width: 81.81818%; }
+
+  .sm-ten-elevenths {
+    width: 90.90909%; }
+
+  .sm-eleven-elevenths {
+    width: 100%; }
+
+  .sm-one-twelfth {
+    width: 8.33333%; }
+
+  .sm-two-twelfths {
+    width: 16.66667%; }
+
+  .sm-three-twelfths {
+    width: 25%; }
+
+  .sm-four-twelfths {
+    width: 33.33333%; }
+
+  .sm-five-twelfths {
+    width: 41.66667%; }
+
+  .sm-six-twelfths {
+    width: 50%; }
+
+  .sm-seven-twelfths {
+    width: 58.33333%; }
+
+  .sm-eight-twelfths {
+    width: 66.66667%; }
+
+  .sm-nine-twelfths {
+    width: 75%; }
+
+  .sm-ten-twelfths {
+    width: 83.33333%; }
+
+  .sm-eleven-twelfths {
+    width: 91.66667%; }
+
+  .sm-twelve-twelfths {
+    width: 100%; } }
+/* 
+  
+  Responsive widths at $breakpoint__md
+
+---------------------------------------------------- */
+@media screen and (min-width: 48em) {
+  .md-one-whole {
+    width: 100%; }
+
+  .md-one-half {
+    width: 50%; }
+
+  .md-two-halves {
+    width: 100%; }
+
+  .md-one-third {
+    width: 33.33333%; }
+
+  .md-two-thirds {
+    width: 66.66667%; }
+
+  .md-three-thirds {
+    width: 100%; }
+
+  .md-one-fourth {
+    width: 25%; }
+
+  .md-two-fourths {
+    width: 50%; }
+
+  .md-three-fourths {
+    width: 75%; }
+
+  .md-four-fourths {
+    width: 100%; }
+
+  .md-one-fifth {
+    width: 20%; }
+
+  .md-two-fifths {
+    width: 40%; }
+
+  .md-three-fifths {
+    width: 60%; }
+
+  .md-four-fifths {
+    width: 80%; }
+
+  .md-five-fifths {
+    width: 100%; }
+
+  .md-one-sixth {
+    width: 16.66667%; }
+
+  .md-two-sixths {
+    width: 33.33333%; }
+
+  .md-three-sixths {
+    width: 50%; }
+
+  .md-four-sixths {
+    width: 66.66667%; }
+
+  .md-five-sixths {
+    width: 83.33333%; }
+
+  .md-six-sixths {
+    width: 100%; }
+
+  .md-one-seventh {
+    width: 14.28571%; }
+
+  .md-two-sevenths {
+    width: 28.57143%; }
+
+  .md-three-sevenths {
+    width: 42.85714%; }
+
+  .md-four-sevenths {
+    width: 57.14286%; }
+
+  .md-five-sevenths {
+    width: 71.42857%; }
+
+  .md-six-sevenths {
+    width: 85.71429%; }
+
+  .md-seven-sevenths {
+    width: 100%; }
+
+  .md-one-eighth {
+    width: 12.5%; }
+
+  .md-two-eighths {
+    width: 25%; }
+
+  .md-three-eighths {
+    width: 37.5%; }
+
+  .md-four-eighths {
+    width: 50%; }
+
+  .md-five-eighths {
+    width: 62.5%; }
+
+  .md-six-eighths {
+    width: 75%; }
+
+  .md-seven-eighths {
+    width: 87.5%; }
+
+  .md-eight-eighths {
+    width: 100%; }
+
+  .md-one-ninth {
+    width: 11.11111%; }
+
+  .md-two-ninths {
+    width: 22.22222%; }
+
+  .md-three-ninths {
+    width: 33.33333%; }
+
+  .md-four-ninths {
+    width: 44.44444%; }
+
+  .md-five-ninths {
+    width: 55.55556%; }
+
+  .md-six-ninths {
+    width: 66.66667%; }
+
+  .md-seven-ninths {
+    width: 77.77778%; }
+
+  .md-eight-ninths {
+    width: 88.88889%; }
+
+  .md-nine-ninths {
+    width: 100%; }
+
+  .md-one-tenth {
+    width: 10%; }
+
+  .md-two-tenths {
+    width: 20%; }
+
+  .md-three-tenths {
+    width: 30%; }
+
+  .md-four-tenths {
+    width: 40%; }
+
+  .md-five-tenths {
+    width: 50%; }
+
+  .md-six-tenths {
+    width: 60%; }
+
+  .md-seven-tenths {
+    width: 70%; }
+
+  .md-eight-tenths {
+    width: 80%; }
+
+  .md-nine-tenths {
+    width: 90%; }
+
+  .md-ten-tenths {
+    width: 100%; }
+
+  .md-one-eleventh {
+    width: 9.09091%; }
+
+  .md-two-elevenths {
+    width: 18.18182%; }
+
+  .md-three-elevenths {
+    width: 27.27273%; }
+
+  .md-four-elevenths {
+    width: 36.36364%; }
+
+  .md-five-elevenths {
+    width: 45.45455%; }
+
+  .md-six-elevenths {
+    width: 54.54545%; }
+
+  .md-seven-elevenths {
+    width: 63.63636%; }
+
+  .md-eight-elevenths {
+    width: 72.72727%; }
+
+  .md-nine-elevenths {
+    width: 81.81818%; }
+
+  .md-ten-elevenths {
+    width: 90.90909%; }
+
+  .md-eleven-elevenths {
+    width: 100%; }
+
+  .md-one-twelfth {
+    width: 8.33333%; }
+
+  .md-two-twelfths {
+    width: 16.66667%; }
+
+  .md-three-twelfths {
+    width: 25%; }
+
+  .md-four-twelfths {
+    width: 33.33333%; }
+
+  .md-five-twelfths {
+    width: 41.66667%; }
+
+  .md-six-twelfths {
+    width: 50%; }
+
+  .md-seven-twelfths {
+    width: 58.33333%; }
+
+  .md-eight-twelfths {
+    width: 66.66667%; }
+
+  .md-nine-twelfths {
+    width: 75%; }
+
+  .md-ten-twelfths {
+    width: 83.33333%; }
+
+  .md-eleven-twelfths {
+    width: 91.66667%; }
+
+  .md-twelve-twelfths {
+    width: 100%; } }
+/* 
+  
+  Responsive widths at $breakpoint__lg
+
+---------------------------------------------------- */
+@media screen and (min-width: 64em) {
+  .lg-one-whole {
+    width: 100%; }
+
+  .lg-one-half {
+    width: 50%; }
+
+  .lg-two-halves {
+    width: 100%; }
+
+  .lg-one-third {
+    width: 33.33333%; }
+
+  .lg-two-thirds {
+    width: 66.66667%; }
+
+  .lg-three-thirds {
+    width: 100%; }
+
+  .lg-one-fourth {
+    width: 25%; }
+
+  .lg-two-fourths {
+    width: 50%; }
+
+  .lg-three-fourths {
+    width: 75%; }
+
+  .lg-four-fourths {
+    width: 100%; }
+
+  .lg-one-fifth {
+    width: 20%; }
+
+  .lg-two-fifths {
+    width: 40%; }
+
+  .lg-three-fifths {
+    width: 60%; }
+
+  .lg-four-fifths {
+    width: 80%; }
+
+  .lg-five-fifths {
+    width: 100%; }
+
+  .lg-one-sixth {
+    width: 16.66667%; }
+
+  .lg-two-sixths {
+    width: 33.33333%; }
+
+  .lg-three-sixths {
+    width: 50%; }
+
+  .lg-four-sixths {
+    width: 66.66667%; }
+
+  .lg-five-sixths {
+    width: 83.33333%; }
+
+  .lg-six-sixths {
+    width: 100%; }
+
+  .lg-one-seventh {
+    width: 14.28571%; }
+
+  .lg-two-sevenths {
+    width: 28.57143%; }
+
+  .lg-three-sevenths {
+    width: 42.85714%; }
+
+  .lg-four-sevenths {
+    width: 57.14286%; }
+
+  .lg-five-sevenths {
+    width: 71.42857%; }
+
+  .lg-six-sevenths {
+    width: 85.71429%; }
+
+  .lg-seven-sevenths {
+    width: 100%; }
+
+  .lg-one-eighth {
+    width: 12.5%; }
+
+  .lg-two-eighths {
+    width: 25%; }
+
+  .lg-three-eighths {
+    width: 37.5%; }
+
+  .lg-four-eighths {
+    width: 50%; }
+
+  .lg-five-eighths {
+    width: 62.5%; }
+
+  .lg-six-eighths {
+    width: 75%; }
+
+  .lg-seven-eighths {
+    width: 87.5%; }
+
+  .lg-eight-eighths {
+    width: 100%; }
+
+  .lg-one-ninth {
+    width: 11.11111%; }
+
+  .lg-two-ninths {
+    width: 22.22222%; }
+
+  .lg-three-ninths {
+    width: 33.33333%; }
+
+  .lg-four-ninths {
+    width: 44.44444%; }
+
+  .lg-five-ninths {
+    width: 55.55556%; }
+
+  .lg-six-ninths {
+    width: 66.66667%; }
+
+  .lg-seven-ninths {
+    width: 77.77778%; }
+
+  .lg-eight-ninths {
+    width: 88.88889%; }
+
+  .lg-nine-ninths {
+    width: 100%; }
+
+  .lg-one-tenth {
+    width: 10%; }
+
+  .lg-two-tenths {
+    width: 20%; }
+
+  .lg-three-tenths {
+    width: 30%; }
+
+  .lg-four-tenths {
+    width: 40%; }
+
+  .lg-five-tenths {
+    width: 50%; }
+
+  .lg-six-tenths {
+    width: 60%; }
+
+  .lg-seven-tenths {
+    width: 70%; }
+
+  .lg-eight-tenths {
+    width: 80%; }
+
+  .lg-nine-tenths {
+    width: 90%; }
+
+  .lg-ten-tenths {
+    width: 100%; }
+
+  .lg-one-eleventh {
+    width: 9.09091%; }
+
+  .lg-two-elevenths {
+    width: 18.18182%; }
+
+  .lg-three-elevenths {
+    width: 27.27273%; }
+
+  .lg-four-elevenths {
+    width: 36.36364%; }
+
+  .lg-five-elevenths {
+    width: 45.45455%; }
+
+  .lg-six-elevenths {
+    width: 54.54545%; }
+
+  .lg-seven-elevenths {
+    width: 63.63636%; }
+
+  .lg-eight-elevenths {
+    width: 72.72727%; }
+
+  .lg-nine-elevenths {
+    width: 81.81818%; }
+
+  .lg-ten-elevenths {
+    width: 90.90909%; }
+
+  .lg-eleven-elevenths {
+    width: 100%; }
+
+  .lg-one-twelfth {
+    width: 8.33333%; }
+
+  .lg-two-twelfths {
+    width: 16.66667%; }
+
+  .lg-three-twelfths {
+    width: 25%; }
+
+  .lg-four-twelfths {
+    width: 33.33333%; }
+
+  .lg-five-twelfths {
+    width: 41.66667%; }
+
+  .lg-six-twelfths {
+    width: 50%; }
+
+  .lg-seven-twelfths {
+    width: 58.33333%; }
+
+  .lg-eight-twelfths {
+    width: 66.66667%; }
+
+  .lg-nine-twelfths {
+    width: 75%; }
+
+  .lg-ten-twelfths {
+    width: 83.33333%; }
+
+  .lg-eleven-twelfths {
+    width: 91.66667%; }
+
+  .lg-twelve-twelfths {
+    width: 100%; } }
+/* 
+  
+  Responsive widths at $breakpoint__xl
+
+---------------------------------------------------- */
+@media screen and (min-width: 78.5em) {
+  .xl-one-whole {
+    width: 100%; }
+
+  .xl-one-half {
+    width: 50%; }
+
+  .xl-two-halves {
+    width: 100%; }
+
+  .xl-one-third {
+    width: 33.33333%; }
+
+  .xl-two-thirds {
+    width: 66.66667%; }
+
+  .xl-three-thirds {
+    width: 100%; }
+
+  .xl-one-fourth {
+    width: 25%; }
+
+  .xl-two-fourths {
+    width: 50%; }
+
+  .xl-three-fourths {
+    width: 75%; }
+
+  .xl-four-fourths {
+    width: 100%; }
+
+  .xl-one-fifth {
+    width: 20%; }
+
+  .xl-two-fifths {
+    width: 40%; }
+
+  .xl-three-fifths {
+    width: 60%; }
+
+  .xl-four-fifths {
+    width: 80%; }
+
+  .xl-five-fifths {
+    width: 100%; }
+
+  .xl-one-sixth {
+    width: 16.66667%; }
+
+  .xl-two-sixths {
+    width: 33.33333%; }
+
+  .xl-three-sixths {
+    width: 50%; }
+
+  .xl-four-sixths {
+    width: 66.66667%; }
+
+  .xl-five-sixths {
+    width: 83.33333%; }
+
+  .xl-six-sixths {
+    width: 100%; }
+
+  .xl-one-seventh {
+    width: 14.28571%; }
+
+  .xl-two-sevenths {
+    width: 28.57143%; }
+
+  .xl-three-sevenths {
+    width: 42.85714%; }
+
+  .xl-four-sevenths {
+    width: 57.14286%; }
+
+  .xl-five-sevenths {
+    width: 71.42857%; }
+
+  .xl-six-sevenths {
+    width: 85.71429%; }
+
+  .xl-seven-sevenths {
+    width: 100%; }
+
+  .xl-one-eighth {
+    width: 12.5%; }
+
+  .xl-two-eighths {
+    width: 25%; }
+
+  .xl-three-eighths {
+    width: 37.5%; }
+
+  .xl-four-eighths {
+    width: 50%; }
+
+  .xl-five-eighths {
+    width: 62.5%; }
+
+  .xl-six-eighths {
+    width: 75%; }
+
+  .xl-seven-eighths {
+    width: 87.5%; }
+
+  .xl-eight-eighths {
+    width: 100%; }
+
+  .xl-one-ninth {
+    width: 11.11111%; }
+
+  .xl-two-ninths {
+    width: 22.22222%; }
+
+  .xl-three-ninths {
+    width: 33.33333%; }
+
+  .xl-four-ninths {
+    width: 44.44444%; }
+
+  .xl-five-ninths {
+    width: 55.55556%; }
+
+  .xl-six-ninths {
+    width: 66.66667%; }
+
+  .xl-seven-ninths {
+    width: 77.77778%; }
+
+  .xl-eight-ninths {
+    width: 88.88889%; }
+
+  .xl-nine-ninths {
+    width: 100%; }
+
+  .xl-one-tenth {
+    width: 10%; }
+
+  .xl-two-tenths {
+    width: 20%; }
+
+  .xl-three-tenths {
+    width: 30%; }
+
+  .xl-four-tenths {
+    width: 40%; }
+
+  .xl-five-tenths {
+    width: 50%; }
+
+  .xl-six-tenths {
+    width: 60%; }
+
+  .xl-seven-tenths {
+    width: 70%; }
+
+  .xl-eight-tenths {
+    width: 80%; }
+
+  .xl-nine-tenths {
+    width: 90%; }
+
+  .xl-ten-tenths {
+    width: 100%; }
+
+  .xl-one-eleventh {
+    width: 9.09091%; }
+
+  .xl-two-elevenths {
+    width: 18.18182%; }
+
+  .xl-three-elevenths {
+    width: 27.27273%; }
+
+  .xl-four-elevenths {
+    width: 36.36364%; }
+
+  .xl-five-elevenths {
+    width: 45.45455%; }
+
+  .xl-six-elevenths {
+    width: 54.54545%; }
+
+  .xl-seven-elevenths {
+    width: 63.63636%; }
+
+  .xl-eight-elevenths {
+    width: 72.72727%; }
+
+  .xl-nine-elevenths {
+    width: 81.81818%; }
+
+  .xl-ten-elevenths {
+    width: 90.90909%; }
+
+  .xl-eleven-elevenths {
+    width: 100%; }
+
+  .xl-one-twelfth {
+    width: 8.33333%; }
+
+  .xl-two-twelfths {
+    width: 16.66667%; }
+
+  .xl-three-twelfths {
+    width: 25%; }
+
+  .xl-four-twelfths {
+    width: 33.33333%; }
+
+  .xl-five-twelfths {
+    width: 41.66667%; }
+
+  .xl-six-twelfths {
+    width: 50%; }
+
+  .xl-seven-twelfths {
+    width: 58.33333%; }
+
+  .xl-eight-twelfths {
+    width: 66.66667%; }
+
+  .xl-nine-twelfths {
+    width: 75%; }
+
+  .xl-ten-twelfths {
+    width: 83.33333%; }
+
+  .xl-eleven-twelfths {
+    width: 91.66667%; }
+
+  .xl-twelve-twelfths {
+    width: 100%; } }
+/* 
+  
+  Responsive widths at $breakpoint__xxl
+
+---------------------------------------------------- */
+@media screen and (min-width: 100em) {
+  .xxl-one-whole {
+    width: 100%; }
+
+  .xxl-one-half {
+    width: 50%; }
+
+  .xxl-two-halves {
+    width: 100%; }
+
+  .xxl-one-third {
+    width: 33.33333%; }
+
+  .xxl-two-thirds {
+    width: 66.66667%; }
+
+  .xxl-three-thirds {
+    width: 100%; }
+
+  .xxl-one-fourth {
+    width: 25%; }
+
+  .xxl-two-fourths {
+    width: 50%; }
+
+  .xxl-three-fourths {
+    width: 75%; }
+
+  .xxl-four-fourths {
+    width: 100%; }
+
+  .xxl-one-fifth {
+    width: 20%; }
+
+  .xxl-two-fifths {
+    width: 40%; }
+
+  .xxl-three-fifths {
+    width: 60%; }
+
+  .xxl-four-fifths {
+    width: 80%; }
+
+  .xxl-five-fifths {
+    width: 100%; }
+
+  .xxl-one-sixth {
+    width: 16.66667%; }
+
+  .xxl-two-sixths {
+    width: 33.33333%; }
+
+  .xxl-three-sixths {
+    width: 50%; }
+
+  .xxl-four-sixths {
+    width: 66.66667%; }
+
+  .xxl-five-sixths {
+    width: 83.33333%; }
+
+  .xxl-six-sixths {
+    width: 100%; }
+
+  .xxl-one-seventh {
+    width: 14.28571%; }
+
+  .xxl-two-sevenths {
+    width: 28.57143%; }
+
+  .xxl-three-sevenths {
+    width: 42.85714%; }
+
+  .xxl-four-sevenths {
+    width: 57.14286%; }
+
+  .xxl-five-sevenths {
+    width: 71.42857%; }
+
+  .xxl-six-sevenths {
+    width: 85.71429%; }
+
+  .xxl-seven-sevenths {
+    width: 100%; }
+
+  .xxl-one-eighth {
+    width: 12.5%; }
+
+  .xxl-two-eighths {
+    width: 25%; }
+
+  .xxl-three-eighths {
+    width: 37.5%; }
+
+  .xxl-four-eighths {
+    width: 50%; }
+
+  .xxl-five-eighths {
+    width: 62.5%; }
+
+  .xxl-six-eighths {
+    width: 75%; }
+
+  .xxl-seven-eighths {
+    width: 87.5%; }
+
+  .xxl-eight-eighths {
+    width: 100%; }
+
+  .xxl-one-ninth {
+    width: 11.11111%; }
+
+  .xxl-two-ninths {
+    width: 22.22222%; }
+
+  .xxl-three-ninths {
+    width: 33.33333%; }
+
+  .xxl-four-ninths {
+    width: 44.44444%; }
+
+  .xxl-five-ninths {
+    width: 55.55556%; }
+
+  .xxl-six-ninths {
+    width: 66.66667%; }
+
+  .xxl-seven-ninths {
+    width: 77.77778%; }
+
+  .xxl-eight-ninths {
+    width: 88.88889%; }
+
+  .xxl-nine-ninths {
+    width: 100%; }
+
+  .xxl-one-tenth {
+    width: 10%; }
+
+  .xxl-two-tenths {
+    width: 20%; }
+
+  .xxl-three-tenths {
+    width: 30%; }
+
+  .xxl-four-tenths {
+    width: 40%; }
+
+  .xxl-five-tenths {
+    width: 50%; }
+
+  .xxl-six-tenths {
+    width: 60%; }
+
+  .xxl-seven-tenths {
+    width: 70%; }
+
+  .xxl-eight-tenths {
+    width: 80%; }
+
+  .xxl-nine-tenths {
+    width: 90%; }
+
+  .xxl-ten-tenths {
+    width: 100%; }
+
+  .xxl-one-eleventh {
+    width: 9.09091%; }
+
+  .xxl-two-elevenths {
+    width: 18.18182%; }
+
+  .xxl-three-elevenths {
+    width: 27.27273%; }
+
+  .xxl-four-elevenths {
+    width: 36.36364%; }
+
+  .xxl-five-elevenths {
+    width: 45.45455%; }
+
+  .xxl-six-elevenths {
+    width: 54.54545%; }
+
+  .xxl-seven-elevenths {
+    width: 63.63636%; }
+
+  .xxl-eight-elevenths {
+    width: 72.72727%; }
+
+  .xxl-nine-elevenths {
+    width: 81.81818%; }
+
+  .xxl-ten-elevenths {
+    width: 90.90909%; }
+
+  .xxl-eleven-elevenths {
+    width: 100%; }
+
+  .xxl-one-twelfth {
+    width: 8.33333%; }
+
+  .xxl-two-twelfths {
+    width: 16.66667%; }
+
+  .xxl-three-twelfths {
+    width: 25%; }
+
+  .xxl-four-twelfths {
+    width: 33.33333%; }
+
+  .xxl-five-twelfths {
+    width: 41.66667%; }
+
+  .xxl-six-twelfths {
+    width: 50%; }
+
+  .xxl-seven-twelfths {
+    width: 58.33333%; }
+
+  .xxl-eight-twelfths {
+    width: 66.66667%; }
+
+  .xxl-nine-twelfths {
+    width: 75%; }
+
+  .xxl-ten-twelfths {
+    width: 83.33333%; }
+
+  .xxl-eleven-twelfths {
+    width: 91.66667%; }
+
+  .xxl-twelve-twelfths {
+    width: 100%; } }
+/***
+
+  @modules
+---------------------------------------------------------
+
+  Reusable objects that are combinations
+  of elements and other modules.
+
+  When you create a new module, make sure the partial is
+  in the modules directory, and you import it below
+
+  Comment out any partial you don't need for this app.
+
+---------------------------------------------------------  */
+/**
+
+   @site
+--------------------------------------------------------
+  modules/_site.scss
+--------------------------------------------------------
+
+  We use the naming convention of .site-* for global
+  modules like the header, main, and footer.
+
+  Sometimes it's beneficial to have a wrapping element
+  around the site, directly following the <body>. In
+  this case, we call that .site.
+
+------------------------------------------------------ */
+/**
+
+  @site-header
+--------------------------------------------------------
+  modules/_site-header.scss
+--------------------------------------------------------
+
+  Site-wide header
+
+------------------------------------------------------ */
+.site-header {
+  zoom: 1;
+  padding: 1.125em 0;
+  border-bottom: 1px solid #cfd2d2; }
+  .site-header:before, .site-header:after {
+    content: " ";
+    display: table; }
+  .site-header:after {
+    clear: both; }
+
+/* @branding
+--------------------------------------------------------
+
+  The logo & (optional) wordmark
+
+  Example: Branding logo
+  <a class="branding" href="/">
+    <img class="branding__logo img--title" src="images/logo.svg" alt="My Company">
+    <h1 class="branding__wordmark">My Company</h1>
+  </a>
+
+------------------------------------------------------ */
+.branding {
+  margin: 0 auto 1.125em;
+  text-decoration: none;
+  display: block;
+  text-align: center; }
+  @media screen and (min-width: 48em) {
+    .branding {
+      margin: 0;
+      float: left;
+      text-align: left; } }
+
+.branding__logo {
+  height: 3.375em;
+  width: 3.375em; }
+  @media screen and (min-width: 48em) {
+    .branding__logo {
+      float: left;
+      margin-right: 1.125em; } }
+
+.branding__wordmark {
+  font-size: 1.6875em;
+  white-space: nowrap;
+  line-height: 2.25em;
+  margin: 0; }
+
+/*
+
+  @site-nav
+--------------------------------------------------------
+
+  The main site navigation.
+
+-----------------------------------------------------  */
+.site-nav {
+  text-align: center; }
+  @media screen and (min-width: 48em) {
+    .site-nav {
+      float: right; } }
+  .site-nav a {
+    display: inline-block;
+    height: 3.375em;
+    line-height: 3.375em;
+    padding: 0 .5em;
+    margin-left: 0.5625em; }
+    .site-nav a:first-child {
+      margin-left: 0; }
+
+/**
+
+  @site-main
+--------------------------------------------------------
+  modules/_site-main.scss
+--------------------------------------------------------
+
+  The site's main content
+
+------------------------------------------------------ */
+.site-main {
+  display: block; }
+
+/**
+
+  @site-footer
+--------------------------------------------------------
+  modules/_site-footer.scss
+--------------------------------------------------------
+
+  The site's global footer
+
+------------------------------------------------------ */
+.site-footer {
+  padding: 1.125em 0;
+  border-top: 1px solid #cfd2d2; }
+
+.site-credits {
+  display: block;
+  clear: both; }
+
+/**
+
+  @pages
+--------------------------------------------------------
+  modules/_pages.scss
+--------------------------------------------------------
+
+  Pages contain content and can have styled headers
+  and footers if you choose.
+
+-----------------------------------------------------  */
+.page__header {
+  padding: 1.125em 0;
+  margin-bottom: 1.125em;
+  background: rgba(0, 0, 0, 0.025);
+  border-bottom: 1px solid #cfd2d2; }
+
+/**
+
+  @alerts
+---------------------------------------------------------
+  modules/_alerts.scss
+--------------------------------------------------------
+
+  Alerts are UI elements that give important info
+
+  Example: Error
+  <div class="alert alert--error">
+    <a href="#" class="btn__close">&times;</a>
+    <p>Uh oh - something went wrong</p>
+  </div>
+
+  Example: Warning
+  <div class="alert alert--warning">
+    <a href="#" class="btn__close">&times;</a>
+    <p>Shake it fast, but watch yourself.</p>
+  </div>
+
+  Example: Success
+  <div class="alert alert--success">
+    <a href="#" class="btn__close">&times;</a>
+    <p>The secret to my success is that I learn, 25 hours a day!</p>
+  </div>
+
+  Example: Info
+  <div class="alert alert--info">
+    <a href="#" class="btn__close">&times;</a>
+    <p>Did you ever know that you're my hero?</p>
+  </div>
+
+  NOTE: The code below uses declared color units, if you'd
+        prefer, declare those as variables in _vars.scss
+
+------------------------------------------------------ */
+.alert {
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 2.25em;
+  padding: .5rem 4rem .5rem .5rem;
+  line-height: 1.25; }
+  .alert p {
+    margin: 0; }
+  .alert .btn__close {
+    position: absolute;
+    top: 50%;
+    margin-top: -.75em;
+    right: 1em;
+    opacity: .5;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    text-decoration: none; }
+    .alert .btn__close:hover {
+      opacity: 1; }
+
+.alert--error {
+  color: #e04646;
+  border-color: #e04646;
+  background: #ffe6e6; }
+  .alert--error .btn__close {
+    color: #e04646; }
+  .alert--error:after {
+    border-color: #e04646; }
+
+.alert--warning {
+  color: #b29804;
+  border-color: #b29804;
+  background: #fcf7d8; }
+  .alert--warning .btn__close {
+    color: #b29804; }
+  .alert--warning:after {
+    border-color: #b29804; }
+
+.alert--info {
+  color: #537df6;
+  border-color: #537df6;
+  background: #e8f3ff; }
+  .alert--info .btn__close {
+    color: #537df6; }
+  .alert--info:after {
+    border-color: #537df6; }
+
+.alert--success {
+  color: #0ca129;
+  border-color: #0ca129;
+  background: #dafce1; }
+  .alert--success .btn__close {
+    color: #0ca129; }
+  .alert--success:after {
+    border-color: #0ca129; }
+
+/**
+
+  @blocks
+--------------------------------------------------------
+  modules/_blocks.scss
+--------------------------------------------------------
+
+  Blocks contain sections of content.  Blocks can have
+  different visual styling, but usually have the same
+  structure; one spacing unit margin at the bottom,
+  and some have borders, and padding, etc.
+
+-----------------------------------------------------  */
+.block {
+  margin-bottom: 2.25em; }
+
+.block--ends {
+  margin-top: 2.25em;
+  margin-bottom: 2.25em; }
+
+/**
+
+  @callouts
+--------------------------------------------------------
+  modules/_callouts.scss
+--------------------------------------------------------
+
+  Callouts, are sections of featured content that usually 
+  contain an icon, a title, and some text. These are 
+  usually in a row, and call attention to highlighted features.
+
+  Example: Callout
+  <article class="callout">
+    <img class="callout__media" src="images/fpo-icon.png">
+    <h3 class="callout__title">Feature</h3>
+    <p>This callout is very impressive, and should command your attention</p>
+  </article>
+
+-----------------------------------------------------  */
+.callout {
+  text-align: center; }
+
+.callout__media {
+  display: block;
+  margin: 0 auto 1.125em;
+  max-height: 3em;
+  width: auto; }
+
+.callout__title {
+  font-size: 1.5em; }
+
+/**
+
+  @heroes
+--------------------------------------------------------
+  modules/_heroes.scss
+--------------------------------------------------------
+
+  Just your everyday, normal hero.  Contains a div that has
+  the media (video or image) in the background, and a div
+  for the main content.
+
+  Example: Hero
+  <div class="hero">
+    <div class="hero__main">
+      <h1 class="hero__leadin">This is the leadin</h1>
+      <h2 class="hero__name">Name Here</h2>
+    <div class="hero__media"><img src="http://fillmurray.com/1000/400"></div>
+  </div>
+------------------------------------------------------ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2.25em; }
+
+.hero__media {
+  position: relative;
+  z-index: 200; }
+
+.hero__main {
+  position: absolute;
+  z-index: 210;
+  width: 100%;
+  top: 50%;
+  text-align: center;
+  color: white;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: .75em; }
+  @media screen and (min-width: 34.375em) {
+    .hero__main {
+      font-size: 1em; } }
+  @media screen and (min-width: 64em) {
+    .hero__main {
+      font-size: 1.25em; } }
+
+/**
+
+  @modals
+---------------------------------------------------------
+  modules/_modals.scss
+--------------------------------------------------------
+
+  These are very basic modals, which simply cover the entire
+  viewport from top to bottom, left to right.  Feel free
+  to edit the styles of modals to suit your needs.
+
+--------------------------------------------------------- */
+.modal {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  display: none; }
+
+.modal__container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: table;
+  height: 100%;
+  padding: 1.125em; }
+
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.37125em 0.37125em 0 0;
+  font-size: 3em;
+  border: none;
+  background: none;
+  display: block; }
+  .modal__close:hover, .modal__close:focus {
+    outline: none;
+    border: none;
+    opacity: .85; }
+  .modal__close:active {
+    opacity: .6; }
+
+.modal__body {
+  display: table-cell;
+  height: 100%;
+  width: 100%;
+  vertical-align: middle; }
+  .modal__body p {
+    margin-bottom: 1em;
+    font-size: 1.5em; }
+
+/**
+
+  @thumbnails
+--------------------------------------------------------
+  modules/_thumbnails.scss
+--------------------------------------------------------
+
+  Thumbnails are usually found within a grid or gallery,
+  as a teaser or preview of more content. The common
+  use is to have an image on top of a title and text
+  below, while the entire thumbnail is an anchor link.
+
+  Example: Thumbnail
+  <a class="thumbnail" href="/some/article">
+    <img class="thumbnail__media" src="http://fillmurray.com/400/200">
+    <div class="thumbnail__caption">
+      <h2>A caption title here</h2>
+      <p>Some more text follows to tease the rest of
+      the content</p>
+    </div>
+  </a>
+
+-----------------------------------------------------  */
+.thumbnail {
+  display: block;
+  padding: 0.5625em;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  text-decoration: none; }
+
+.thumbnail__media {
+  margin-bottom: 0.5625em; }
+
+.thumbnail__caption {
+  font-size: 85%; }
+  .thumbnail__caption h1, .thumbnail__caption h2, .thumbnail__caption h3, .thumbnail__caption h4, .thumbnail__caption h5, .thumbnail__caption h5 {
+    margin-bottom: 0.28125em; }
+
+/**
+
+  @video
+--------------------------------------------------------
+  modules/_video-embeds.scss
+--------------------------------------------------------
+
+  Video Embeds
+
+-----------------------------------------------------  */
+.video-embed {
+  display: block;
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-top: 66.666%; }
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100% !important;
+    width: 100% !important; }
