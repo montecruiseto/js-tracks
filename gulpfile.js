@@ -1,16 +1,26 @@
-// Define gulp
-var gulp = require('gulp');
+/**
+ * Define dependencies.
+ */
 
-// Define other plugins
-var sass = require('gulp-ruby-sass');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var gulp = require('gulp'),
+    deploy = require('gulp-gh-pages'),
+    sass = require('gulp-ruby-sass'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload;
 
-// Setup the default gulp task
+/**
+ * Define the tasks.
+ */
+
 gulp.task('default', function() {
     gulp.src([
             'source/index.html',
             'source/styles/screen.css'
         ])
         .pipe(gulp.dest('build'));
+});
+
+gulp.task('deploy', function() {
+    return gulp.src('build/**/*')
+        .pipe(deploy());
 });
