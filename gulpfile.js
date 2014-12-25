@@ -1,26 +1,70 @@
-/**
- * Define dependencies.
+/*
+ * Define our dependencies.
  */
 
 var gulp = require('gulp'),
     deploy = require('gulp-gh-pages'),
     sass = require('gulp-ruby-sass'),
-    browserSync = require('browser-sync'),
-    reload = browserSync.reload;
+    browserSync = require('browser-sync')
 
-/**
- * Define the tasks.
+/*
+ * Define our browserSync configuration.
  */
 
-gulp.task('default', function() {
-    gulp.src([
-            'source/index.html',
-            'source/styles/screen.css'
-        ])
-        .pipe(gulp.dest('build'));
+var config = {
+    server: {
+        baseDir: "./source",
+    },
+    browser: "google chrome canary"
+}
+
+/*
+ * Compile our Sass files.
+ */
+
+gulp.task('sass', function() {
+    return sass('source/styles/screen.scss')
+        .on('error', function(err) {
+            console.error('Error!', err.message);
+        })
+        .pipe(gulp.dest('source/styles/'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
 });
 
+/*
+ * Start the server, calling our configuration settings
+ */
+
+gulp.task('browser-sync', function() {
+    browserSync(config);
+});
+
+/*
+ * Reload all Browsers
+ */
+
+gulp.task('bs-reload', function() {
+    browserSync.reload();
+});
+
+/*
+ * Run the default task ('gulp')
+ *   1 - watch & compile scss
+ *   2 - watch html
+ */
+
+gulp.task('default', ['browser-sync'], function() {
+    gulp.watch("./source/styles/**/*.scss", ['sass']);
+    gulp.watch("./source/index.html", ['bs-reload']);
+});
+
+/*
+ * Deploy to github pages
+ */
+
 gulp.task('deploy', function() {
-    return gulp.src('build/**/*')
+    return gulp.src('source/**/*')
         .pipe(deploy());
 });

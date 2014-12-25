@@ -1,23 +1,17 @@
 /****
 
-  MAIN STYLESHEET for [* Site Name Here *]
+  MAIN STYLESHEET for js-tracks
 
 ---------------------------------------------------------
 
   BUILT WITH SKYLINE: EVOLVING CSS ARCHITECTURE
-
-  See README.md for info and credits
-
-
-
----------------------------------------------------------
 
   TABLE OF CONTENTS
   @toc
 
   - Base ............ foundations, mixins, functions, vars
   - Elements ........ single elements
-  - Layout .......... layout objects like grids, containers  
+  - Layout .......... layout objects like grids, containers
   - Modules ......... objects created by combining elements
 
 ---------------------------------------------------------  */
@@ -307,7 +301,7 @@ input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
   .dev--highlight-elements [class*="-highlight"] {
     color: inherit; }
   .dev--highlight-elements .lg-highlight {
-    color: #0d699c; } }
+    color: #0D699C; } }
 @media screen and (min-width: 78.5em) {
   .dev--highlight-elements [class*="-highlight"] {
     color: inherit; }
@@ -347,7 +341,7 @@ input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
     background: rgba(235, 109, 88, 0.25); } }
 @media screen and (min-width: 64em) {
   .dev--highlight-grids .g[class*="lg-"] > *, .dev--highlight-grids .grid[class*="lg-"] > * {
-    border-color: #0d699c;
+    border-color: #0D699C;
     background: rgba(13, 105, 156, 0.25); } }
 @media screen and (min-width: 78.5em) {
   .dev--highlight-grids .g[class*="xl-"] > *, .dev--highlight-grids .grid[class*="xl-"] > * {
@@ -371,7 +365,7 @@ input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
     background: rgba(235, 109, 88, 0.25); } }
 @media screen and (min-width: 64em) {
   .dev--highlight-grids .gw[class*="lg-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="lg-"][class*="-up"] > * > * {
-    border-color: #0d699c;
+    border-color: #0D699C;
     background: rgba(13, 105, 156, 0.25); } }
 @media screen and (min-width: 78.5em) {
   .dev--highlight-grids .gw[class*="xl-"][class*="-up"] > * > *, .dev--highlight-grids .grid-wrap[class*="xl-"][class*="-up"] > * > * {
@@ -424,9 +418,9 @@ input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
   @media screen and (min-width: 64em) {
     .dev--show-breakpoint body:before {
       content: "LG";
-      color: #0d699c;
+      color: #0D699C;
       background: rgba(13, 105, 156, 0.25);
-      border-color: #0d699c; } }
+      border-color: #0D699C; } }
   @media screen and (min-width: 78.5em) {
     .dev--show-breakpoint body:before {
       content: "XL";
@@ -528,7 +522,7 @@ input, input::-webkit-input-placeholder, input:-moz-placeholder, textarea {
 body {
   line-height: 1.5;
   color: #515554;
-  background: white; }
+  background: #fff; }
 
 /**
 
@@ -564,7 +558,7 @@ button:focus, button:active {
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
   background: #515554;
-  color: white;
+  color: #fff;
   border: none;
   font-size: 1.25em;
   text-transform: uppercase;
@@ -586,8 +580,8 @@ button:focus, button:active {
 ------------------------------------------------------ */
 .btn--secondary {
   background: none;
-  border: 1px solid white;
-  color: white; }
+  border: 1px solid #fff;
+  color: #fff; }
 
 /* @btn--large
 --------------------------------------------------------
@@ -1573,14 +1567,14 @@ i,
 em {
   font-style: italic; }
 
-  /***
+/***
 
   @layout
 ---------------------------------------------------------
 
   A large portion of CSS is structural layout. You will use
   these helpers to create the scaffolding that will support
-  the elements that make up your site.
+  the elements and modules that make up your site.
 
 ---------------------------------------------------------  */
 /**
@@ -3645,7 +3639,7 @@ em {
   of elements and other modules.
 
   When you create a new module, make sure the partial is
-  in the modules directory, and you import it below
+  in the modules directory, and you import it below.
 
   Comment out any partial you don't need for this app.
 
@@ -3971,7 +3965,7 @@ em {
   width: 100%;
   top: 50%;
   text-align: center;
-  color: white;
+  color: #fff;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   font-size: .75em; }

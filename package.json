@@ -7,7 +7,7 @@
   "devDependencies": {
     "browser-sync": "^1.8.1",
     "gulp": "^3.8.10",
-    "gulp-ruby-sass": "^0.7.1"
+    "gulp-ruby-sass": "^1.0.0-alpha"
   },
   "keywords": [],
   "repository": "https://github.com/montecruiseto/js-tracks",
