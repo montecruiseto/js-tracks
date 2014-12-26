@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Site styles
+   ========================================================================== */
+
+.header {
+color: #000000;
+background-color: #E6E6E6;
+}
+.header-inner {
+   padding: 20px;
+}
+.content {
+   background-color: #272822;
+   h3 {
+      color: #F92772;
+   }
+   p {
+      color: #A6E22A;
+      a {
+         color: #E6DB6F;
+      }
+   }
+}
+
+
+/* Medium and Up - Targets everything larger than mobile
+   ========================================================================== */
+
+@include break(medium-and-large) {
+   .header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   width: 25%;
+   margin-bottom: 0;
+   }
+   .header-inner {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 40px;
+   }
+   .content {
+      width: 75%;
+      margin-left: 25%;
+      padding: 20px 0;
+      .block {
+         padding-left: 30px;
+      }
+   }
+}
+
+/* Medium - only targets 1st breakpoint. Styles
+   ========================================================================== */
+
+@include break(medium) {
+
+}
+
+/* Large - only targets 2nd breakpoint.
+   ========================================================================== */
+
+@include break(large) {
+
+}

@@ -23,7 +23,7 @@ var config = {
  */
 
 gulp.task('sass', function() {
-    return sass('source/styles/screen.scss')
+    return sass('source/styles/mnml.scss')
         .on('error', function(err) {
             console.error('Error!', err.message);
         })
