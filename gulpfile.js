@@ -5,7 +5,7 @@
 var gulp = require('gulp'),
     deploy = require('gulp-gh-pages'),
     sass = require('gulp-ruby-sass'),
-    browserSync = require('browser-sync')
+    browserSync = require('browser-sync');
 
 /*
  * Define our browserSync configuration.
@@ -16,7 +16,7 @@ var config = {
         baseDir: "./source",
     },
     browser: "google chrome canary"
-}
+};
 
 /*
  * Compile our Sass files.
@@ -27,7 +27,7 @@ gulp.task('sass', function() {
         .on('error', function(err) {
             console.error('Error!', err.message);
         })
-        .pipe(gulp.dest('source/styles/'))
+        .pipe(gulp.dest('source/'))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -65,6 +65,6 @@ gulp.task('default', ['browser-sync'], function() {
  */
 
 gulp.task('deploy', function() {
-    return gulp.src('source/**/*')
+    return gulp.src('source/*')
         .pipe(deploy());
 });
