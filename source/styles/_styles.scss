@@ -7,7 +7,7 @@
     background-color: #E6E6E6;
 }
 .inner {
-    padding: 20px;
+    padding: 90px 35px 35px 25px;
 }
 .title {
     text-transform: uppercase;
@@ -19,20 +19,35 @@
     background-color: #272822;
     color: #A6E22A;
 }
+.wrapper {
+    margin: 0 0;
+    padding: 0 0;
+}
+.keyword {
+    color: #5AD6EF;
+    display: inline;
+}
 .tracktitle {
     color: #F92772;
 }
-.block {
-   margin: 50px 10px;
+.track {
+    padding: 2.5em 1em;
+    border-bottom: 1px solid #39382E;
+    transition: all .15s ease-in;
+    list-style-type: none;
+    &:hover {
+        background: #39382E;
+    }
+}
+.authorlink {
+    color: #E6DB6F;
 }
 a {
-    color: #E6DB6F;
     text-decoration: none;
 }
 p {
     margin: 0 0;
 }
-
 /* Medium and Up - Targets everything larger than mobile
    ========================================================================== */
 
@@ -55,7 +70,6 @@ p {
     .content {
         width: 75%;
         margin-left: 25%;
-        padding: 20px 0;
         .block {
             padding-left: 30px;
         }
