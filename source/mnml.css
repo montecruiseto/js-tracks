@@ -388,15 +388,9 @@ header {
 .content {
   font-family: 'Inconsolata'; }
 
-.title {
-  text-transform: uppercase;
-  color: #828292;
-  text-shadow: 0px 2px 0px #FAFAFA;
-  margin: 0 0; }
-
 /* Scale ========================================================================= */
-p {
-  font-size: 14px; }
+.content {
+  font-size: 24px; }
 
 h1, .f1 {
   font-size: 64px; }
@@ -426,17 +420,31 @@ small, .small {
   color: #000000;
   background-color: #E6E6E6; }
 
-.header-inner {
+.inner {
   padding: 20px; }
 
+.title {
+  text-transform: uppercase;
+  color: #828292;
+  text-shadow: 0px 2px 0px #FAFAFA;
+  margin: 0 0; }
+
 .content {
-  background-color: #272822; }
-  .content h3 {
-    color: #F92772; }
-  .content p {
-    color: #A6E22A; }
-    .content p a {
-      color: #E6DB6F; }
+  background-color: #272822;
+  color: #A6E22A; }
+
+.tracktitle {
+  color: #F92772; }
+
+.block {
+  margin: 50px 10px; }
+
+a {
+  color: #E6DB6F;
+  text-decoration: none; }
+
+p {
+  margin: 0 0; }
 
 /* Medium and Up - Targets everything larger than mobile
    ========================================================================== */
@@ -449,7 +457,7 @@ small, .small {
     width: 25%;
     margin-bottom: 0; }
 
-  .header-inner {
+  .inner {
     position: absolute;
     bottom: 0;
     right: 0;
