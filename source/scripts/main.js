@@ -1,7 +1,3 @@
-// Compiles our template
-var source = $("#blockTemplate").html();
-var template = Handlebars.compile(source);
-
 // Our data
 var data = {
     tracks: [{
@@ -68,4 +64,4 @@ var data = {
 };
 
 // Our data is passed to our template and attached to the HTML element with id "main"
-$("#main").html(template(data));
+$("#main").html(MyApp.templates.block-template(data));

@@ -28,6 +28,10 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon-precomposed.png">
     <meta name="apple-mobile-web-app-title" content="Javascript Learning Tracks">
 
+    <!-- TODO: REPLACE BY CDN -->
+    <script src="scripts/jquery-2.1.3.min.js"></script>
+    <script src="scripts/handlebars.runtime-v2.0.0.js"></script>
+
 </head>
 
 <body>
@@ -49,23 +53,8 @@
     <main class="content" id="main">
     </main>
 
-    <script id="blockTemplate" type="text/x-handlebars-template">
-        <ul class="wrapper">
-            {{#each tracks}}
-            <li class="track">
-            <p class="keyword">the</p>
-                <a href="{{trackUrl}}" class="tracktitle" target="_blank">{{title}}_Track</a>
-                <p>Author: <a href="{{authorUrl}}" class="authorlink" target="_blank">{{author}}</a>
-                </p>
-                <p></p>
-            </li>
-            {{/each}}
-        </ul>
-    </script>
-
-    <script src="scripts/jquery-2.1.3.min.js"></script>
-    <script src="scripts/handlebars-v2.0.0.js"></script>
-    <script src="scripts/template.js"></script>
+    <script src="scripts/block-template.js"></script>
+    <script src="scripts/main.js"></script>
 
 </body>
 
