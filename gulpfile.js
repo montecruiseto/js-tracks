@@ -65,6 +65,6 @@ gulp.task('default', ['browser-sync'], function() {
  */
 
 gulp.task('deploy', function() {
-    return gulp.src('source/*')
+    return gulp.src(['source/*', 'source/scripts/*'])
         .pipe(deploy());
 });
