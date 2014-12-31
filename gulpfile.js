@@ -7,44 +7,32 @@
  */
 
 var gulp = require('gulp'),
-    deploy = require('gulp-gh-pages'),
+    browserSync = require('browser-sync'),
+    del = require('del'),
     sass = require('gulp-ruby-sass'),
     handlebars = require('gulp-handlebars'),
     defineModule = require('gulp-define-module'),
     declare = require('gulp-declare'),
-    browserSync = require('browser-sync');
+    deploy = require('gulp-gh-pages');
+
 
 /*
- * Define our browserSync configuration.
+ * Task to delete our 'build' folder before watching or building
  */
 
-var config = {
-    server: {
-        baseDir: "./source",
-    },
-    browser: "google chrome canary"
-};
+// gulp.task('clean', function () {
+//     del(['./build']);
+// });
 
-/*
- * Task that will start the server,
- * and call our configuration settings ('gulp browser-sync')
- */
-
-gulp.task('browser-sync', function() {
-    browserSync(config);
+gulp.task('clean', function(cb) {
+    del(['build'], cb);
 });
 
-/*
- * Task that will reload all our browsers ('gulp bs-reload')
- */
-
-gulp.task('bs-reload', function() {
-    browserSync.reload();
-});
 
 /*
- * Task that will compile our handlebars into javascript ('gulp templates')
+ * Task to compile our handlebars into javascript (run 'gulp templates')
  */
+
 
 gulp.task('templates', function() {
     return gulp.src('source/templates/*.hbs')
@@ -58,7 +46,7 @@ gulp.task('templates', function() {
 
 
 /*
- * Task that will compile our Sass files ('gulp sass')
+ * Task to compile our Sass files (run 'gulp sass')
  */
 
 gulp.task('sass', function() {
@@ -72,23 +60,61 @@ gulp.task('sass', function() {
         }));
 });
 
+
 /*
- * Run the default task ('gulp')
- *   1 - watch & compile scss
- *   2 - watch html
- *   3 - watch js
- *   4 - watch hbs & pre-compile
+ * Task to build our project to the 'build' folder
  */
 
-gulp.task('default', ['browser-sync'], function() {
+gulp.task('build', ['clean'], function (cb) {
+    runSequence(['sass'], cb);
+});
+
+/*
+ * Define our browserSync configuration.
+ */
+
+var config = {
+    server: {
+        baseDir: "./source",
+    },
+    browser: "google chrome canary"
+};
+
+
+/*
+ * 1 - Task to start the server with our configuration settings
+ * 2 - Watch all our assets
+ */
+
+gulp.task('watch', ['build'], function() {
+    browserSync(config);
     gulp.watch("source/styles/**/*.scss", ['sass']);
     gulp.watch("source/index.html", ['bs-reload']);
     gulp.watch("source/scripts/main.js", ['bs-reload']);
     gulp.watch("source/templates/*", ['templates'], ['bs-reload']);
 });
 
+
 /*
- * Run a deploy to github pages ('gulp deploy')
+ * Task to reload all our browsers (run 'gulp bs-reload')
+ */
+
+gulp.task('bs-reload', function() {
+    browserSync.reload();
+});
+
+
+/*
+ * The default task (run 'gulp')
+ */
+
+
+gulp.task('default', ['serve'], function() {
+});
+
+
+/*
+ * Run a deploy to github pages (run 'gulp deploy')
  */
 
 gulp.task('deploy', function() {

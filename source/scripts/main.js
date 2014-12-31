@@ -60,6 +60,11 @@ var data = {
         trackUrl: "https://upcase.com/javascript",
         author: "Thoughtbot",
         authorUrl: "https://twitter.com/thoughtbot"
+    }, {
+        title: "Elliott",
+        trackUrl: "https://medium.com/javascript-scene/learn-javascript-b631a4af11f2",
+        author: "Eric Elliott",
+        authorUrl: "https://twitter.com/_ericelliott"
     }]
 };
 
