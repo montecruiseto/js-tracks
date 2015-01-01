@@ -1,10 +1,4 @@
-// sets variable source to the animalTemplate id in index.html
-var source = $("#blockTemplate").html();
-
-// Handlebars compiles the above source into a template
-var template = Handlebars.compile(source);
-
-// data
+// Our data
 var data = {
     tracks: [{
         title: "Bango",
@@ -66,8 +60,13 @@ var data = {
         trackUrl: "https://upcase.com/javascript",
         author: "Thoughtbot",
         authorUrl: "https://twitter.com/thoughtbot"
+    }, {
+        title: "Elliott",
+        trackUrl: "https://medium.com/javascript-scene/learn-javascript-b631a4af11f2",
+        author: "Eric Elliott",
+        authorUrl: "https://twitter.com/_ericelliott"
     }]
 };
 
-// data is passed to above template and attached to HTML element with id "main"
-$("#main").html(template(data));
+// Our data is passed to our template and attached to the HTML element with id "main"
+$("#main").html(template.block(data));
