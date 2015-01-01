@@ -90,7 +90,7 @@ gulp.task('build', ['clean'], function(cb) {
  */
 
 
-gulp.task('default', ['serve'], function() {});
+gulp.task('default', ['watch'], function() {});
 
 /*
  * Define our browserSync configuration.

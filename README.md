@@ -1,7 +1,8 @@
 js-tracks
 =========
 
-## Running the project
+## Try this at home
 
-- Install: `npm install`
-- Run `gulp` for building
+- Run `npm install` to install the project
+- Run `gulp` to build & watch
+- That's it
