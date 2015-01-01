@@ -1,7 +1,3 @@
-// TODO: set up a full build to 'build' directory
-// and watch changes to all files
-
-
 /*
  * Define our dependencies.
  */
@@ -27,7 +23,7 @@ gulp.task('clean', function(cb) {
 
 
 /*
- * Task to compile our handlebars into javascript (run 'gulp templates')
+ * Task to compile our handlebars into javascript
  */
 
 
@@ -43,7 +39,7 @@ gulp.task('hbs', function() {
 
 
 /*
- * Task to compile our Sass files (run 'gulp sass')
+ * Task to compile our Sass files
  */
 
 gulp.task('sass', function() {
@@ -58,21 +54,26 @@ gulp.task('sass', function() {
 });
 
 /*
-* Task to build our Javascript
-*/
+ * Task to build our Javascript
+ */
 
-gulp.task('js', function(){
+gulp.task('js', function() {
     gulp.src('source/scripts/*.js')
-    .pipe(gulp.dest('build/js'));
+        .pipe(gulp.dest('build/js'));
 });
 
 /*
- * Task to simply copy our html to the 'build' folder
+ * Task to simply copy our static assets to the 'build' folder
  */
+//**************** TODO - concatenate github fork css to main stylesheet
 
 gulp.task('static', function() {
-    gulp.src(['source/index.html', 'source/styles/*.css'])
+    gulp.src('source/index.html')
         .pipe(gulp.dest('build'));
+    gulp.src(['source/styles/*.css'])
+        .pipe(gulp.dest('build/css'));
+    gulp.src('source/data/tracks.json')
+        .pipe(gulp.dest('build/data'));
 });
 
 
@@ -106,7 +107,7 @@ var config = {
 
 /*
  * 1 - Task to start the server with our configuration settings
- * 2 - Watch all our assets
+ * 2 - Watch all our assets & reload
  */
 
 gulp.task('watch', ['build'], function() {
@@ -119,7 +120,7 @@ gulp.task('watch', ['build'], function() {
 
 
 /*
- * Task to reload all our browsers (run 'gulp bs-reload')
+ * Task to reload all our browsers
  */
 
 gulp.task('bs-reload', function() {
@@ -132,6 +133,6 @@ gulp.task('bs-reload', function() {
  */
 
 gulp.task('deploy', function() {
-    return gulp.src(['build/*', 'build/js/*', 'build/css/*'])
+    return gulp.src(['build/**/*'])
         .pipe(deploy());
 });

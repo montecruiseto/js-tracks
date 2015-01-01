@@ -1,72 +1,9 @@
-// Our data
-var data = {
-    tracks: [{
-        title: "Bango",
-        trackUrl: "http://blog.reybango.com/2010/12/15/what-to-read-to-get-up-to-speed-in-javascript",
-        author: "Rey_Bango",
-        authorUrl: "https://twitter.com/reybango"
-    }, {
-        title: "IRC",
-        trackUrl: "http://learn-javascript.github.io",
-        author: "#learnjavascript@irc",
-        authorUrl: "http://webchat.freenode.net/?channels=learnjavascript"
-    }, {
-        title: "Addy",
-        trackUrl: "https://plus.google.com/+AddyOsmani/posts/H3onog42Msj",
-        author: "Addy Osmani",
-        authorUrl: "https://twitter.com/addyosmani"
-    }, {
-        title: "FreeCodeCamp",
-        trackUrl: "http://www.freecodecamp.com/challenges/0",
-        author: "freeCodeCamp",
-        authorUrl: "https://twitter.com/freecodecamp"
-    }, {
-        title: "NodeSchool",
-        trackUrl: "http://nodeschool.io/index.html#workshopper-list",
-        author: "NodeSchool",
-        authorUrl: "https://twitter.com/nodeschool"
-    }, {
-        title: "Silfverstrom",
-        trackUrl: "http://pointnull.com/learn-javascript",
-        author: "Niklas Silfverström",
-        authorUrl: "https://twitter.com/silfverstrom"
-    }, {
-        title: "Bento",
-        trackUrl: "https://www.bento.io/javascript",
-        author: "Jon Chan",
-        authorUrl: "https://twitter.com/jonhmchan"
-    }, {
-        title: "tuts+",
-        trackUrl: "http://code.tutsplus.com/tutorials/the-best-way-to-learn-javascript--net-21954",
-        author: "Andrew Burgess",
-        authorUrl: "https://twitter.com/andrew8088"
-    }, {
-        title: "Lindley",
-        trackUrl: "https://speakerdeck.com/codylindley/learn-javascript-the-hard-way",
-        author: "Cody Lindley",
-        authorUrl: "https://twitter.com/codylindley"
-    }, {
-        title: "Sivers",
-        trackUrl: "http://sivers.org/learn-js",
-        author: "Derek Sivers",
-        authorUrl: "https://twitter.com/sivers"
-    }, {
-        title: "Bovell",
-        trackUrl: "http://javascriptissexy.com/how-to-learn-javascript-properly/#What_You_will_Learn",
-        author: "Richard Bovell",
-        authorUrl: "http://javascriptissexy.com/about"
-    }, {
-        title: "Upcase",
-        trackUrl: "https://upcase.com/javascript",
-        author: "Thoughtbot",
-        authorUrl: "https://twitter.com/thoughtbot"
-    }, {
-        title: "Elliott",
-        trackUrl: "https://medium.com/javascript-scene/learn-javascript-b631a4af11f2",
-        author: "Eric Elliott",
-        authorUrl: "https://twitter.com/_ericelliott"
-    }]
-};
+/*
+* Fetch our data data, pass it to our pre-compiled template and attach the
+* result to the HTML element with id "main"
+*/
 
-// Our data is passed to our template and attached to the HTML element with id "main"
-$("#main").html(template.block(data));
+$.getJSON('../data/tracks.json', function(data) {
+    $("#main").html(template.block(data));
+});
+
