@@ -11,7 +11,8 @@
     "gulp-declare": "^0.3.0",
     "gulp-define-module": "^0.1.1",
     "gulp-handlebars": "^3.0.1",
-    "gulp-ruby-sass": "^1.0.0-alpha"
+    "gulp-ruby-sass": "^1.0.0-alpha",
+    "run-sequence": "^1.0.2"
   },
   "keywords": [],
   "repository": "https://github.com/montecruiseto/js-tracks",

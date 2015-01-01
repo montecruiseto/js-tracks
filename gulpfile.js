@@ -14,15 +14,12 @@ var gulp = require('gulp'),
     defineModule = require('gulp-define-module'),
     declare = require('gulp-declare'),
     deploy = require('gulp-gh-pages');
+runSequence = require('run-sequence');
 
 
 /*
  * Task to delete our 'build' folder before watching or building
  */
-
-// gulp.task('clean', function () {
-//     del(['./build']);
-// });
 
 gulp.task('clean', function(cb) {
     del(['build'], cb);
@@ -34,12 +31,12 @@ gulp.task('clean', function(cb) {
  */
 
 
-gulp.task('templates', function() {
+gulp.task('hbs', function() {
     return gulp.src('source/templates/*.hbs')
         .pipe(handlebars())
         .pipe(defineModule('plain'))
         .pipe(declare({
-            namespace: 'MyApp.templates'
+            namespace: 'template'
         }))
         .pipe(gulp.dest('build/js'));
 });
@@ -60,14 +57,40 @@ gulp.task('sass', function() {
         }));
 });
 
+/*
+* Task to build our Javascript
+*/
+
+gulp.task('js', function(){
+    gulp.src('source/scripts/*.js')
+    .pipe(gulp.dest('build/js'));
+});
+
+/*
+ * Task to simply copy our html to the 'build' folder
+ */
+
+gulp.task('static', function() {
+    gulp.src(['source/index.html', 'source/styles/*.css'])
+        .pipe(gulp.dest('build'));
+});
+
 
 /*
  * Task to build our project to the 'build' folder
  */
 
-gulp.task('build', ['clean'], function (cb) {
-    runSequence(['sass'], cb);
+gulp.task('build', ['clean'], function(cb) {
+    runSequence(['sass', 'static', 'hbs', 'js'], cb);
 });
+
+
+/*
+ * The default task (run 'gulp')
+ */
+
+
+gulp.task('default', ['serve'], function() {});
 
 /*
  * Define our browserSync configuration.
@@ -75,7 +98,7 @@ gulp.task('build', ['clean'], function (cb) {
 
 var config = {
     server: {
-        baseDir: "./source",
+        baseDir: "./build",
     },
     browser: "google chrome canary"
 };
@@ -89,9 +112,9 @@ var config = {
 gulp.task('watch', ['build'], function() {
     browserSync(config);
     gulp.watch("source/styles/**/*.scss", ['sass']);
-    gulp.watch("source/index.html", ['bs-reload']);
-    gulp.watch("source/scripts/main.js", ['bs-reload']);
-    gulp.watch("source/templates/*", ['templates'], ['bs-reload']);
+    gulp.watch("source/index.html", ['static', 'bs-reload']);
+    gulp.watch("source/scripts/main.js", ['js', 'bs-reload']);
+    gulp.watch("source/templates/*", ['hbs', 'bs-reload']);
 });
 
 
@@ -101,15 +124,6 @@ gulp.task('watch', ['build'], function() {
 
 gulp.task('bs-reload', function() {
     browserSync.reload();
-});
-
-
-/*
- * The default task (run 'gulp')
- */
-
-
-gulp.task('default', ['serve'], function() {
 });
 
 

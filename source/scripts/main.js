@@ -69,4 +69,4 @@ var data = {
 };
 
 // Our data is passed to our template and attached to the HTML element with id "main"
-$("#main").html(MyApp.templates.block-template(data));
+$("#main").html(template.block(data));
