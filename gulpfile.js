@@ -9,8 +9,8 @@ var gulp = require('gulp'),
     handlebars = require('gulp-handlebars'),
     defineModule = require('gulp-define-module'),
     declare = require('gulp-declare'),
-    deploy = require('gulp-gh-pages');
-runSequence = require('run-sequence');
+    deploy = require('gulp-gh-pages'),
+    runSequence = require('run-sequence');
 
 
 /*
@@ -136,3 +136,4 @@ gulp.task('deploy', function() {
     return gulp.src(['build/**/*'])
         .pipe(deploy());
 });
+
