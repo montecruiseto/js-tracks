@@ -16,31 +16,38 @@
     margin: 0 0;
 }
 .content {
-    background-color: #272822;
-    color: #A6E22A;
+    background-color: $black;
+    color: $green;
 }
 .wrapper {
     margin: 0 0;
     padding: 0 0;
 }
 .keyword {
-    color: #5AD6EF;
+    color: $blue;
     display: inline;
 }
 .tracktitle {
-    color: #F92772;
+    color: $pink;
+    &:hover {
+        color: lighten( $pink, 8% )
+    }
 }
 .track {
     padding: 2.5em 1em;
-    border-bottom: 1px solid #39382E;
-    transition: all .15s ease-in;
+    border-bottom: 1px solid $highlight;
+    transition: all .12s ease-in;
     list-style-type: none;
     &:hover {
-        background: #39382E;
+        background: $highlight;
+        padding-left: 1.8em;
     }
 }
 .authorlink {
-    color: #E6DB6F;
+    color: $yellow;
+    &:hover {
+        color: lighten( $yellow, 8% )
+    }
 }
 a {
     text-decoration: none;
@@ -48,6 +55,7 @@ a {
 p {
     margin: 0 0;
 }
+
 /* Medium and Up - Targets everything larger than mobile
    ========================================================================== */
 
@@ -75,10 +83,12 @@ p {
         }
     }
 }
+
 /* Medium - only targets 1st breakpoint. Styles
    ========================================================================== */
 
 @include break(medium) {}
+
 /* Large - only targets 2nd breakpoint.
    ========================================================================== */
 
