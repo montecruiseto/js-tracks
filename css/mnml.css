@@ -385,11 +385,11 @@ html, body {
 header {
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif; }
 
-.content {
+.canvas {
   font-family: 'Inconsolata'; }
 
 /* Scale ========================================================================= */
-.content {
+.canvas {
   font-size: 24px; }
 
 h1, .f1 {
@@ -429,13 +429,37 @@ small, .small {
   text-shadow: 0px 2px 0px #FAFAFA;
   margin: 0 0; }
 
-.content {
+.canvas {
   background-color: #272822;
   color: #A6E22A; }
 
 .wrapper {
   margin: 0 0;
   padding: 0 0; }
+
+.track {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 3em 0.7em;
+  border-bottom: 1px solid #39382E;
+  transition: all .12s ease-in;
+  list-style-type: none; }
+  .track:hover {
+    background: #39382E; }
+
+.margin {
+  padding-left: 0em;
+  padding-right: 0em;
+  float: left; }
+
+.content {
+  padding-left: 0.5em;
+  float: left;
+  width: 85%;
+  transition: all .11s ease-in; }
+  .content:hover {
+    padding-left: 1.2em; }
 
 .keyword {
   color: #5AD6EF;
@@ -445,15 +469,6 @@ small, .small {
   color: #F92772; }
   .tracktitle:hover {
     color: #fa4f8c; }
-
-.track {
-  padding: 2.5em 1em;
-  border-bottom: 1px solid #39382E;
-  transition: all .12s ease-in;
-  list-style-type: none; }
-  .track:hover {
-    background: #39382E;
-    padding-left: 1.8em; }
 
 .authorlink {
   color: #E6DB6F; }
@@ -468,7 +483,11 @@ p {
 
 /* Medium and Up - Targets everything larger than mobile
    ========================================================================== */
-@media screen and (min-width: 32em) {
+/* Medium - only targets 1st breakpoint. Styles
+   ========================================================================== */
+/* Large - only targets 2nd breakpoint.
+   ========================================================================== */
+@media screen and (min-width: 48em) {
   .header {
     position: fixed;
     top: 0;
@@ -484,12 +503,8 @@ p {
     left: 0;
     padding: 40px; }
 
-  .content {
+  .canvas {
     width: 75%;
     margin-left: 25%; }
-    .content .block {
+    .canvas .block {
       padding-left: 30px; } }
-/* Medium - only targets 1st breakpoint. Styles
-   ========================================================================== */
-/* Large - only targets 2nd breakpoint.
-   ========================================================================== */
