@@ -3,7 +3,7 @@
 * result to the HTML element with id "main"
 */
 
-$.getJSON('/../data/tracks.json', function(data) {
+$.getJSON('/tracks.json', function(data) {
     $("#main").html(template.block(data));
 });
 
