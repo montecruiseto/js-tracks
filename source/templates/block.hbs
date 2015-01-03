@@ -7,9 +7,15 @@
     {{#each tracks}}
         <li class="track">
             <div class="content">
-                <p class="keyword">the</p>
-                <a href="{{trackUrl}}" class="tracktitle" target="_blank">{{title}}_Track</a>
-                <p>Author: <a href="{{authorUrl}}" class="authorlink" target="_blank">{{author}}</a></p>
+                <div class="line1">
+                    <p class="keyword">the</p>
+                    <a href="{{trackUrl}}" class="tracktitle" target="_blank">{{title}}_Track</a>
+                </div>
+                <div class="line2">
+                    <p class="bracket">{</p>
+                    <p class ="author">Author: <a href="{{authorUrl}}" class="authorlink" target="_blank">{{author}}</a></p>
+                    <p class="bracket">}</p>
+                </div>
             </div>
         </li>
     {{/each}}

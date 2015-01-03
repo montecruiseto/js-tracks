@@ -32,17 +32,20 @@
         line-height: 28px;
         color: $liner;
     }
+    > li:nth-child(4n) {
+        border-bottom: 1px solid $black;
+    }
 }
 .wrapper {
     display: -webkit-flex;
     -webkit-flex-direction: column;
     width: 100%;
-    margin: 0 0;
+    margin: 0 0 0 5px;
     padding: 0 0;
 }
 .track {
     padding-left: 10px;
-    // border-bottom: 1px solid $highlight;
+    border-bottom: 1px dotted $highlight;
     transition: all .12s ease-in;
     list-style-type: none;
     &:hover {
@@ -50,26 +53,43 @@
     }
 }
 .content {
-    padding: 28px 0 28px 20px;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    padding: 28px 0 28px 10px;
     line-height: 28px;
     width: 85%;
-    transition: all .14s ease-in;
+    transition: all .15s ease-in;
     &:hover {
-        padding-left: 30px;
+        padding-left: 28px;
     }
 }
 .keyword {
     color: $blue;
     display: inline;
 }
+.bracket {
+    color: $white;
+    display: inline;
+    float:left;
+}
+.line2 {
+    margin-left: 25px;
+}
 .tracktitle {
     color: $pink;
+    transition: all .14s ease-in;
     &:hover {
         color: lighten( $pink, 8% )
     }
 }
+.author {
+    display: inline;
+    float:left;
+    margin: 0 1px 0;
+}
 .authorlink {
     color: $yellow;
+    transition: all .14s ease-in;
     &:hover {
         color: lighten( $yellow, 8% )
     }
