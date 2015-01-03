@@ -11,21 +11,33 @@ $.getJSON('data/tracks.json', function(data) {
 /*
 * Generate & inject margin line numbers
 */
-Handlebars.registerHelper('liner', function(context, options) {
-  var out = "", data;
+// Handlebars.registerHelper('liner', function(context, options) {
+//   var out = "", data;
 
-  for (var i=1; i<=(context.length*4); i++) {
-    if (options.data) {
-      data = Handlebars.createFrame(options.data || {});
-      data.index = i;
-    }
+//   for (var i=0; i<=(context.length); i++) {
 
-    out += "<li>" + options.fn(context[i], { data: data }) + "</li>";
+//     if (options.data) {
+
+//       data = Handlebars.createFrame(options.data || {});
+//       data.index = i;
+//     }
+
+//     out += "<li>" + options.fn(context[i], { data: data }) + "</li>";
+
+//   }
+
+//   return out;
+// });
+
+Handlebars.registerHelper('liner', function(options) {
+  var ret = "";
+
+  for(var i=1, j=5; i<j; i++) {
+    ret = ret + "<li>" + i + "</li>";
   }
 
-  return out;
+  return ret;
 });
-
 
 /*
 * Generate the style for our track hovers

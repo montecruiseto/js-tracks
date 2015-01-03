@@ -37,13 +37,13 @@
     }
 }
 .wrapper {
-    display: -webkit-flex;
-    -webkit-flex-direction: column;
     width: 100%;
-    margin: 0 0 0 5px;
+    margin: 0 0 0 0;
     padding: 0 0;
 }
 .track {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
     padding-left: 10px;
     border-bottom: 1px dotted $highlight;
     transition: all .12s ease-in;
@@ -53,14 +53,12 @@
     }
 }
 .content {
-    display: -webkit-flex;
-    -webkit-flex-direction: column;
-    padding: 28px 0 28px 10px;
+    padding: 28px 0 28px 25px;
     line-height: 28px;
     width: 85%;
     transition: all .15s ease-in;
     &:hover {
-        padding-left: 28px;
+        padding-left: 38px;
     }
 }
 .keyword {

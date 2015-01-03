@@ -1,11 +1,11 @@
-<ul class="liner">
-    {{#liner tracks}}
-        {{@index}}
-    {{/liner}}
-</ul>
 <ul class="wrapper">
     {{#each tracks}}
         <li class="track">
+            <ul class="liner">
+                {{#liner}}
+                    {{@index}}
+                {{/liner}}
+            </ul>
             <div class="content">
                 <div class="line1">
                     <p class="keyword">the</p>
