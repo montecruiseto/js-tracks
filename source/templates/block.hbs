@@ -1,14 +1,20 @@
+<ul class="liner">
+    {{#liner tracks}}
+        {{@index}}
+    {{/liner}}
+</ul>
 <ul class="wrapper">
     {{#each tracks}}
-    <li class="track">
-    		<div class="margin">
-    				{{@index}}
-    		</div>
-    		<div class="content">
-    				<p class="keyword">the</p>
-    				<a href="{{trackUrl}}" class="tracktitle" target="_blank">{{title}}_Track</a>
-    				<p>Author: <a href="{{authorUrl}}" class="authorlink" target="_blank">{{author}}</a></p>
-    		</div>
-    </li>
+        <li class="track">
+            <div class="content">
+                <p class="keyword">the</p>
+                <a href="{{trackUrl}}" class="tracktitle" target="_blank">{{title}}_Track</a>
+                <p>Author: <a href="{{authorUrl}}" class="authorlink" target="_blank">{{author}}</a></p>
+            </div>
+        </li>
     {{/each}}
 </ul>
+
+
+
+

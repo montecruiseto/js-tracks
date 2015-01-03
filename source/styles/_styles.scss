@@ -16,43 +16,46 @@
     margin: 0 0;
 }
 .canvas {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
     background-color: $black;
     color: $green;
 }
+.liner {
+    margin: 0 0;
+    padding-left: 0.5em;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    > li {
+        -webkit-align-self: flex-end;
+        list-style-type: none;
+        line-height: 28px;
+        color: $liner;
+    }
+}
 .wrapper {
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    width: 100%;
     margin: 0 0;
     padding: 0 0;
 }
 .track {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 3em 0.7em;
-    border-bottom: 1px solid $highlight;
+    padding-left: 10px;
+    // border-bottom: 1px solid $highlight;
     transition: all .12s ease-in;
     list-style-type: none;
     &:hover {
         background: $highlight;
     }
 }
-.margin {
-    // position: relative;
-    // display: inline-block;
-    // vertical-align: top;
-    padding-left:  0em;
-    padding-right: 0em;
-    float: left;
-}
 .content {
-    // position: relative;
-    // display: inline-block;
-    // vertical-align: top;
-    padding-left:  0.5em;
-    float: left;
+    padding: 28px 0 28px 20px;
+    line-height: 28px;
     width: 85%;
-    transition: all .11s ease-in;
+    transition: all .14s ease-in;
     &:hover {
-        padding-left: 1.2em;
+        padding-left: 30px;
     }
 }
 .keyword {
