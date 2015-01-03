@@ -445,40 +445,60 @@ small, .small {
     list-style-type: none;
     line-height: 28px;
     color: #8F9084; }
+  .liner > li:nth-child(4n) {
+    border-bottom: 1px solid #272822; }
 
 .wrapper {
   display: -webkit-flex;
   -webkit-flex-direction: column;
   width: 100%;
-  margin: 0 0;
+  margin: 0 0 0 5px;
   padding: 0 0; }
 
 .track {
   padding-left: 10px;
+  border-bottom: 1px dotted #39382E;
   transition: all .12s ease-in;
   list-style-type: none; }
   .track:hover {
     background: #39382E; }
 
 .content {
-  padding: 28px 0 28px 20px;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  padding: 28px 0 28px 10px;
   line-height: 28px;
   width: 85%;
-  transition: all .14s ease-in; }
+  transition: all .15s ease-in; }
   .content:hover {
-    padding-left: 30px; }
+    padding-left: 28px; }
 
 .keyword {
   color: #5AD6EF;
   display: inline; }
 
+.bracket {
+  color: #F8F8EA;
+  display: inline;
+  float: left; }
+
+.line2 {
+  margin-left: 25px; }
+
 .tracktitle {
-  color: #F92772; }
+  color: #F92772;
+  transition: all .14s ease-in; }
   .tracktitle:hover {
     color: #fa4f8c; }
 
+.author {
+  display: inline;
+  float: left;
+  margin: 0 1px 0; }
+
 .authorlink {
-  color: #E6DB6F; }
+  color: #E6DB6F;
+  transition: all .14s ease-in; }
   .authorlink:hover {
     color: #ece492; }
 
