@@ -413,6 +413,12 @@ h6, .f6 {
 small, .small {
   font-size: 12px; }
 
+.header p {
+  font-size: 15px; }
+
+@media screen and (min-width: 58em) {
+  .header p {
+    font-size: 16px; } }
 /* ==========================================================================
    Site styles
    ========================================================================== */
@@ -422,12 +428,15 @@ small, .small {
 
 .inner {
   padding: 90px 35px 35px 25px; }
+  .inner a {
+    color: #39382E;
+    text-decoration: none; }
 
 .title {
   text-transform: uppercase;
   color: #828292;
   text-shadow: 0px 2px 0px #FAFAFA;
-  margin: 0 0; }
+  margin: 0 0 5px 0; }
 
 .canvas {
   display: -webkit-flex;
@@ -437,7 +446,8 @@ small, .small {
 
 .liner {
   margin: 0 0;
-  padding-left: 0.5em;
+  min-width: 24px;
+  padding-left: 0.4em;
   display: -webkit-flex;
   -webkit-flex-direction: column; }
   .liner > li {
@@ -445,17 +455,15 @@ small, .small {
     list-style-type: none;
     line-height: 28px;
     color: #8F9084; }
-  .liner > li:nth-child(4n) {
-    border-bottom: 1px solid #272822; }
 
 .wrapper {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
   width: 100%;
-  margin: 0 0 0 5px;
+  margin: 0 0 0 0;
   padding: 0 0; }
 
 .track {
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
   padding-left: 10px;
   border-bottom: 1px dotted #39382E;
   transition: all .12s ease-in;
@@ -464,14 +472,12 @@ small, .small {
     background: #39382E; }
 
 .content {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  padding: 28px 0 28px 10px;
+  padding: 28px 0 28px 25px;
   line-height: 28px;
   width: 85%;
   transition: all .15s ease-in; }
   .content:hover {
-    padding-left: 28px; }
+    padding-left: 38px; }
 
 .keyword {
   color: #5AD6EF;
@@ -480,10 +486,18 @@ small, .small {
 .bracket {
   color: #F8F8EA;
   display: inline;
-  float: left; }
+  float: left;
+  transition: all .12s ease-in; }
 
 .line2 {
   margin-left: 25px; }
+  .line2:hover > .bracket {
+    padding-left: 0.04em;
+    padding-right: 0.04em; }
+  .line2:hover > .author {
+    color: #b5e74e; }
+  .line2:hover > .author > .authorlink {
+    color: #ece492; }
 
 .tracktitle {
   color: #F92772;
@@ -499,8 +513,6 @@ small, .small {
 .authorlink {
   color: #E6DB6F;
   transition: all .14s ease-in; }
-  .authorlink:hover {
-    color: #ece492; }
 
 a {
   text-decoration: none; }
@@ -514,7 +526,7 @@ p {
    ========================================================================== */
 /* Large - only targets 2nd breakpoint.
    ========================================================================== */
-@media screen and (min-width: 48em) {
+@media screen and (min-width: 58em) {
   .header {
     position: fixed;
     top: 0;

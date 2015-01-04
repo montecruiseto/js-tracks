@@ -1,7 +1,8 @@
 /*
-* Fetch our data, pass it to our pre-compiled template and attach the
-* result to our main container
-*/
+ * Fetch our data,
+ * pass it to our pre-compiled template,
+ * attach the result to our main container
+ */
 
 $.getJSON('data/tracks.json', function(data) {
     $("#main").html(template.block(data));
@@ -9,33 +10,22 @@ $.getJSON('data/tracks.json', function(data) {
 
 
 /*
-* Generate & inject margin line numbers
-*/
-Handlebars.registerHelper('liner', function(context, options) {
-  var out = "", data;
+ * Generate & inject margin line numbers for every track
+ */
 
-  for (var i=1; i<=(context.length*4); i++) {
-    if (options.data) {
-      data = Handlebars.createFrame(options.data || {});
-      data.index = i;
+Handlebars.registerHelper('liner', function(options) {
+    console.log(this);
+    // Set a variable to hold our list items
+    var lineList = "";
+    // Set the number of lines in one track here
+    var n = 4;
+
+    for (var i = 1; i <= n; i++) {
+        // Get the index number for each track
+        var index = options.data.index;
+        // Capture the line numbers starting with the right number for each track
+        lineList += "<li>" + (n * index + i) + "</li>";
     }
 
-    out += "<li>" + options.fn(context[i], { data: data }) + "</li>";
-  }
-
-  return out;
+    return lineList;
 });
-
-
-/*
-* Generate the style for our track hovers
-*/
-
-
-
-// For each track div, on hover
-// 0. get the track's height & width
-// 1. create a new div with those specs plus additional 40px to the left
-
-// IN CSS: set z-index to overlay it on top of everything, set opacity <1
-// (OPTIONAL) For each track div, extend the hoverable area 40px to the right
