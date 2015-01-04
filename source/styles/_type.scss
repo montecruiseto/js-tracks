@@ -33,3 +33,15 @@ h6, .f6 {
 small, .small {
     font-size: 12px;
 }
+.header {
+        p {
+        font-size: 15px;
+    }
+}
+@include break(large) {
+    .header {
+            p {
+            font-size: 16px;
+        }
+    }
+}

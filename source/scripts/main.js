@@ -1,7 +1,8 @@
 /*
-* Fetch our data, pass it to our pre-compiled template and attach the
-* result to our main container
-*/
+ * Fetch our data,
+ * pass it to our pre-compiled template,
+ * attach the result to our main container
+ */
 
 $.getJSON('data/tracks.json', function(data) {
     $("#main").html(template.block(data));
@@ -9,37 +10,22 @@ $.getJSON('data/tracks.json', function(data) {
 
 
 /*
-* Generate & inject margin line numbers
-*/
+ * Generate & inject margin line numbers for every track
+ */
 
 Handlebars.registerHelper('liner', function(options) {
-  var ret = "";
+    console.log(this);
+    // Set a variable to hold our list items
+    var lineList = "";
+    // Set the number of lines in one track here
+    var n = 4;
 
-  for(var i=1, j=5; i<j; i++) {
-    ret = ret + "<li>" + (options.data.index + i) + "</li>";
-  }
+    for (var i = 1; i <= n; i++) {
+        // Get the index number for each track
+        var index = options.data.index;
+        // Capture the line numbers starting with the right number for each track
+        lineList += "<li>" + (n * index + i) + "</li>";
+    }
 
-  return ret;
+    return lineList;
 });
-
-// Handlebars.registerHelper('liner', function(context, options) {
-//   var out = "", data;
-
-//   for (var i=0; i<=(context.length); i++) {
-
-//     if (options.data) {
-
-//       data = Handlebars.createFrame(options.data || {});
-//       data.index = i;
-//     }
-
-//     out += "<li>" + options.fn(context[i], { data: data }) + "</li>";
-
-//   }
-
-//   return out;
-// });
-
-
-
-

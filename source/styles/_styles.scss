@@ -8,12 +8,16 @@
 }
 .inner {
     padding: 90px 35px 35px 25px;
+    a {
+        color: $highlight;
+        text-decoration: none;
+    }
 }
 .title {
     text-transform: uppercase;
     color: #828292;
     text-shadow: 0px 2px 0px #FAFAFA;
-    margin: 0 0;
+    margin: 0 0 5px 0;
 }
 .canvas {
     display: -webkit-flex;
@@ -23,7 +27,8 @@
 }
 .liner {
     margin: 0 0;
-    padding-left: 0.5em;
+    min-width: 24px;
+    padding-left: 0.4em;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     > li {
@@ -31,9 +36,6 @@
         list-style-type: none;
         line-height: 28px;
         color: $liner;
-    }
-    > li:nth-child(4n) {
-        border-bottom: 1px solid $black;
     }
 }
 .wrapper {
@@ -69,9 +71,20 @@
     color: $white;
     display: inline;
     float:left;
+    transition: all .12s ease-in;
 }
 .line2 {
     margin-left: 25px;
+    &:hover>.bracket {
+            padding-left: 0.04em;
+            padding-right: 0.04em;
+    }
+    &:hover>.author {
+        color: lighten( $green, 8% );
+    }
+    &:hover>.author>.authorlink {
+        color: lighten( $yellow, 8% );
+    }
 }
 .tracktitle {
     color: $pink;
@@ -88,9 +101,6 @@
 .authorlink {
     color: $yellow;
     transition: all .14s ease-in;
-    &:hover {
-        color: lighten( $yellow, 8% )
-    }
 }
 a {
     text-decoration: none;
