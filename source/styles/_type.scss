@@ -10,8 +10,9 @@ header {
 
 /* Scale ========================================================================= */
 .canvas {
-    font-size: 24px;
+    font-size: 14px;
 }
+
 h1, .f1 {
     font-size: 64px;
 }
@@ -38,6 +39,34 @@ small, .small {
         font-size: 15px;
     }
 }
+
+
+/* Medium and Up - Targets everything larger than mobile & phablets
+   ========================================================================== */
+
+@include break(medium-and-large) {
+    .canvas {
+        font-size: 24px;
+    }
+}
+
+/* Phablets - only targets 1st breakpoint. Styles
+   ========================================================================== */
+
+@include break(phablets) {
+    // .canvas {
+    //     font-size: 22px;
+    // }
+}
+
+/* Medium - only targets 2nd breakpoint. Styles
+   ========================================================================== */
+
+@include break(medium) {}
+
+/* Large - only targets 3rd breakpoint.
+   ========================================================================== */
+
 @include break(large) {
     .header {
             p {

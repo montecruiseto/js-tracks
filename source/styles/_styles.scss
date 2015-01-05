@@ -34,7 +34,7 @@
     > li {
         -webkit-align-self: flex-end;
         list-style-type: none;
-        line-height: 28px;
+        line-height: 18px;
         color: $liner;
     }
 }
@@ -55,8 +55,8 @@
     }
 }
 .content {
-    padding: 28px 0 28px 25px;
-    line-height: 28px;
+    padding: 18px 0 18px 25px;
+    line-height: 18px;
     width: 85%;
     transition: all .15s ease-in;
     &:hover {
@@ -93,6 +93,10 @@
         color: lighten( $pink, 8% )
     }
 }
+.new {
+    color: $comment;
+    display: inline;
+}
 .author {
     display: inline;
     float:left;
@@ -109,19 +113,38 @@ p {
     margin: 0 0;
 }
 
-/* Medium and Up - Targets everything larger than mobile
+
+/* Medium and Up - Targets everything larger than mobile & phablets
    ========================================================================== */
 
 @include break(medium-and-large) {
-
+    .content {
+        padding: 28px 0 28px 25px;
+        line-height: 28px;
+        &:hover {
+            padding-left: 38px;
+        }
+    }
+    .liner {
+        min-width: 24px;
+        padding-left: 0.4em;
+        > li {
+            line-height: 28px;
+        }
+    }
 }
 
-/* Medium - only targets 1st breakpoint. Styles
+/* Phablets - only targets 1st breakpoint. Styles
+   ========================================================================== */
+
+@include break(phablets) {}
+
+/* Medium - only targets 2nd breakpoint. Styles
    ========================================================================== */
 
 @include break(medium) {}
 
-/* Large - only targets 2nd breakpoint.
+/* Large - only targets 3rd breakpoint.
    ========================================================================== */
 
 @include break(large) {

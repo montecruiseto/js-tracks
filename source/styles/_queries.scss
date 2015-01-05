@@ -32,5 +32,10 @@
       @content;
     }
   }
+  @else if $point == phablets {
+    @media screen and (min-width: 40em) and (max-width:50em)  {
+      @content;
+    }
+  }
 }
 
