@@ -390,7 +390,7 @@ header {
 
 /* Scale ========================================================================= */
 .canvas {
-  font-size: 24px; }
+  font-size: 14px; }
 
 h1, .f1 {
   font-size: 64px; }
@@ -416,6 +416,17 @@ small, .small {
 .header p {
   font-size: 15px; }
 
+/* Medium and Up - Targets everything larger than mobile & phablets
+   ========================================================================== */
+@media screen and (min-width: 50em) {
+  .canvas {
+    font-size: 24px; } }
+/* Phablets - only targets 1st breakpoint. Styles
+   ========================================================================== */
+/* Medium - only targets 2nd breakpoint. Styles
+   ========================================================================== */
+/* Large - only targets 3rd breakpoint.
+   ========================================================================== */
 @media screen and (min-width: 58em) {
   .header p {
     font-size: 16px; } }
@@ -453,7 +464,7 @@ small, .small {
   .liner > li {
     -webkit-align-self: flex-end;
     list-style-type: none;
-    line-height: 28px;
+    line-height: 18px;
     color: #8F9084; }
 
 .wrapper {
@@ -472,8 +483,8 @@ small, .small {
     background: #39382E; }
 
 .content {
-  padding: 28px 0 28px 25px;
-  line-height: 28px;
+  padding: 18px 0 18px 25px;
+  line-height: 18px;
   width: 85%;
   transition: all .15s ease-in; }
   .content:hover {
@@ -505,6 +516,10 @@ small, .small {
   .tracktitle:hover {
     color: #fa4f8c; }
 
+.new {
+  color: #73715E;
+  display: inline; }
+
 .author {
   display: inline;
   float: left;
@@ -520,11 +535,25 @@ a {
 p {
   margin: 0 0; }
 
-/* Medium and Up - Targets everything larger than mobile
+/* Medium and Up - Targets everything larger than mobile & phablets
    ========================================================================== */
-/* Medium - only targets 1st breakpoint. Styles
+@media screen and (min-width: 50em) {
+  .content {
+    padding: 28px 0 28px 25px;
+    line-height: 28px; }
+    .content:hover {
+      padding-left: 38px; }
+
+  .liner {
+    min-width: 24px;
+    padding-left: 0.4em; }
+    .liner > li {
+      line-height: 28px; } }
+/* Phablets - only targets 1st breakpoint. Styles
    ========================================================================== */
-/* Large - only targets 2nd breakpoint.
+/* Medium - only targets 2nd breakpoint. Styles
+   ========================================================================== */
+/* Large - only targets 3rd breakpoint.
    ========================================================================== */
 @media screen and (min-width: 58em) {
   .header {
