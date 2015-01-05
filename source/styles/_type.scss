@@ -54,9 +54,9 @@ small, .small {
    ========================================================================== */
 
 @include break(phablets) {
-    // .canvas {
-    //     font-size: 22px;
-    // }
+    .canvas {
+        font-size: 22px;
+    }
 }
 
 /* Medium - only targets 2nd breakpoint. Styles

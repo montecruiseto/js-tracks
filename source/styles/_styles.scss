@@ -28,7 +28,7 @@
 .liner {
     margin: 0 0;
     min-width: 24px;
-    padding-left: 0.4em;
+    padding-left: 0em;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     > li {
@@ -46,7 +46,6 @@
 .track {
     display: -webkit-flex;
     -webkit-flex-direction: row;
-    padding-left: 10px;
     border-bottom: 1px dotted $highlight;
     transition: all .12s ease-in;
     list-style-type: none;
@@ -132,12 +131,33 @@ p {
             line-height: 28px;
         }
     }
+    .track {
+        padding-left: 10px;
+    }
 }
 
 /* Phablets - only targets 1st breakpoint. Styles
    ========================================================================== */
 
-@include break(phablets) {}
+@include break(phablets) {
+    .content {
+        padding: 26px 0 26px 25px;
+        line-height: 26px;
+        &:hover {
+            padding-left: 38px;
+        }
+    }
+    .liner {
+        min-width: 24px;
+        padding-left: 0.3em;
+        > li {
+            line-height: 26px;
+        }
+    }
+    .track {
+        padding-left: 7px;
+    }
+}
 
 /* Medium - only targets 2nd breakpoint. Styles
    ========================================================================== */
