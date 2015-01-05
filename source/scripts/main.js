@@ -5,6 +5,10 @@
  */
 
 $.getJSON('data/tracks.json', function(data) {
+    // Give it a (weak) random shuffle before printing
+    data.tracks.sort(function() {
+        return Math.random() - 0.5;
+    });
     $("#main").html(template.block(data));
 });
 
