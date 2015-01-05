@@ -5,6 +5,10 @@
  */
 
 $.getJSON('data/tracks.json', function(data) {
+    // Give it a (weak) random shuffle before printing
+    data.tracks.sort(function() {
+        return Math.random() - 0.5;
+    });
     $("#main").html(template.block(data));
 });
 
@@ -14,18 +18,18 @@ $.getJSON('data/tracks.json', function(data) {
  */
 
 Handlebars.registerHelper('liner', function(options) {
-    console.log(this);
+
     // Set a variable to hold our list items
     var lineList = "";
-    // Set the number of lines in one track here
+    // Configure the number of lines per track div
     var n = 4;
-
+    // Make the list
     for (var i = 1; i <= n; i++) {
-        // Get the index number for each track
+        // Get the index number for the current track
         var index = options.data.index;
-        // Capture the line numbers starting with the right number for each track
+        // Use the index to capture the right line numbers in a list of size n
         lineList += "<li>" + (n * index + i) + "</li>";
     }
-
+    // Print the list
     return lineList;
 });
