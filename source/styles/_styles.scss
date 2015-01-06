@@ -19,6 +19,10 @@
     text-shadow: 0px 2px 0px #FAFAFA;
     margin: 0 0 5px 0;
 }
+.rack {
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
 .canvas {
     display: -webkit-flex;
     -webkit-flex-direction: row;
@@ -69,27 +73,27 @@
 .bracket {
     color: $white;
     display: inline;
-    float:left;
+    float: left;
     transition: all .12s ease-in;
 }
 .line2 {
     margin-left: 25px;
     &:hover>.bracket {
-            padding-left: 0.04em;
-            padding-right: 0.04em;
+        padding-left: 0.04em;
+        padding-right: 0.04em;
     }
     &:hover>.author {
-        color: lighten( $green, 8% );
+        color: lighten( $green, 8%);
     }
     &:hover>.author>.authorlink {
-        color: lighten( $yellow, 8% );
+        color: lighten( $yellow, 8%);
     }
 }
 .tracktitle {
     color: $pink;
     transition: all .14s ease-in;
     &:hover {
-        color: lighten( $pink, 8% )
+        color: lighten( $pink, 8%)
     }
 }
 .new {
@@ -98,7 +102,7 @@
 }
 .author {
     display: inline;
-    float:left;
+    float: left;
     margin: 0 1px 0;
 }
 .authorlink {
@@ -111,7 +115,6 @@ a {
 p {
     margin: 0 0;
 }
-
 
 /* Medium and Up - Targets everything larger than mobile & phablets
    ========================================================================== */
