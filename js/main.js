@@ -33,5 +33,3 @@ Handlebars.registerHelper('liner', function(options) {
     // Print the list
     return lineList;
 });
-
-

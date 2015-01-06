@@ -222,8 +222,13 @@ small, .small {
   .inner a {
     color: #39382E;
     text-decoration: none; }
+  .inner .ps {
+    margin-top: 10px;
+    font-size: 13px; }
+    .inner .ps a {
+      text-decoration: underline; }
 
-.title {
+h6.title {
   text-transform: uppercase;
   color: #828292;
   text-shadow: 0px 2px 0px #FAFAFA;
