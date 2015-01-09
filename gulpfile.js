@@ -74,6 +74,8 @@ gulp.task('static', function() {
         .pipe(gulp.dest('build/css'));
     gulp.src('source/data/tracks.json')
         .pipe(gulp.dest('build/data'));
+    gulp.src('source/CNAME')
+        .pipe(gulp.dest('build'));
 });
 
 
