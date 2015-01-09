@@ -196,6 +196,9 @@ small, .small {
 .header p {
   font-size: 15px; }
 
+.credits {
+  font-size: 12px; }
+
 /* Medium and Up - Targets everything larger than mobile & phablets
    ========================================================================== */
 @media screen and (min-width: 50em) {
@@ -227,6 +230,8 @@ small, .small {
     font-size: 13px; }
     .inner .ps a {
       text-decoration: underline; }
+  .inner .credits {
+    margin-top: 10px; }
 
 h6.title {
   text-transform: uppercase;
