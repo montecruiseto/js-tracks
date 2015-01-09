@@ -2,7 +2,7 @@ js-tracks
 =========
 
 ### Contributing
-- Found a good javascript learning track? You're welcome to add it to [tracks.json] (url) and open a PR.
+- Found a good javascript learning track? You're welcome to add it to [tracks.json] (https://github.com/montecruiseto/js-tracks/blob/master/source/data/tracks.json) and open a PR.
 
 ### Development
 
