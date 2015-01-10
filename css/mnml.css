@@ -244,7 +244,9 @@ h6.title {
   margin: 0 0 5px 0; }
 
 .canvas {
+  display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
   /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;
   /* TWEENER - IE 10 */
@@ -253,6 +255,7 @@ h6.title {
   display: flex;
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   -webkit-flex-direction: row;
+  flex-direction: row;
   background-color: #272822;
   color: #A6E22A; }
 
@@ -260,7 +263,9 @@ h6.title {
   margin: 0 0;
   min-width: 24px;
   padding-left: 0em;
+  display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
   /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;
   /* TWEENER - IE 10 */
@@ -268,7 +273,8 @@ h6.title {
   /* NEW - Chrome */
   display: flex;
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
-  -webkit-flex-direction: column; }
+  -webkit-flex-direction: column;
+  flex-direction: column; }
   .liner > li {
     -webkit-align-self: flex-end;
     list-style-type: none;
@@ -281,7 +287,9 @@ h6.title {
   padding: 0 0; }
 
 .track {
+  display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
   /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;
   /* TWEENER - IE 10 */
@@ -290,6 +298,7 @@ h6.title {
   display: flex;
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   -webkit-flex-direction: row;
+  flex-direction: row;
   border-bottom: 1px dotted #39382E;
   transition: all .12s ease-in;
   list-style-type: none; }
