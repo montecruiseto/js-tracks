@@ -23,10 +23,10 @@ Handlebars.registerHelper('liner', function(options) {
     var lineList = "";
     // Configure the number of lines per track div
     var n = 4;
+    // Get the index number for the current track
+    var index = options.data.index;
     // Make the list
     for (var i = 1; i <= n; i++) {
-        // Get the index number for the current track
-        var index = options.data.index;
         // Use the index to capture the right line numbers in a list of size n
         lineList += "<li>" + (n * index + i) + "</li>";
     }
