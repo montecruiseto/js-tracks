@@ -68,14 +68,12 @@ gulp.task('js', function() {
 //**************** TODO - concatenate github fork css to main stylesheet
 
 gulp.task('static', function() {
-    gulp.src('source/index.html')
+    gulp.src(['source/index.html', 'source/CNAME', 'source/*ico' ])
         .pipe(gulp.dest('build'));
     gulp.src(['source/styles/*.css'])
         .pipe(gulp.dest('build/css'));
     gulp.src('source/data/tracks.json')
         .pipe(gulp.dest('build/data'));
-    gulp.src('source/CNAME')
-        .pipe(gulp.dest('build'));
 });
 
 
