@@ -277,6 +277,7 @@ h6.title {
   flex-direction: column; }
   .liner > li {
     -webkit-align-self: flex-end;
+    align-self: flex-end;
     list-style-type: none;
     line-height: 18px;
     color: #8F9084; }
