@@ -70,7 +70,7 @@ gulp.task('js', function() {
 gulp.task('static', function() {
     gulp.src(['source/index.html', 'source/CNAME', 'source/*ico' ])
         .pipe(gulp.dest('build'));
-    gulp.src(['source/styles/*.css'])
+    gulp.src(['source/styles/lib/*.css'])
         .pipe(gulp.dest('build/css'));
     gulp.src('source/data/tracks.json')
         .pipe(gulp.dest('build/data'));
