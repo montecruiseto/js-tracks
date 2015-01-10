@@ -203,7 +203,10 @@ small, .small {
    ========================================================================== */
 @media screen and (min-width: 50em) {
   .canvas {
-    font-size: 24px; } }
+    font-size: 24px; }
+
+  .title {
+    font-size: 17px; } }
 /* Phablets - only targets 1st breakpoint. Styles
    ========================================================================== */
 @media screen and (min-width: 40em) and (max-width: 50em) {
@@ -231,16 +234,14 @@ small, .small {
       text-decoration: none; }
   .inner .credits {
     margin-top: 20px; }
+  .inner .arrow {
+    color: #868686; }
 
 h6.title {
   text-transform: uppercase;
   color: #828292;
   text-shadow: 0px 2px 0px #FAFAFA;
   margin: 0 0 5px 0; }
-
-.rack {
-  margin-top: 15px;
-  margin-bottom: 3px; }
 
 .canvas {
   display: -webkit-flex;
