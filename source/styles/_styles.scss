@@ -38,6 +38,7 @@ h6.title {
     display: -webkit-flex; /* NEW - Chrome */
     display: flex;         /* NEW, Spec - Opera 12.1, Firefox 20+ */
     -webkit-flex-direction: row;
+    flex-direction: row;
     background-color: $black;
     color: $green;
 }
@@ -51,6 +52,7 @@ h6.title {
     display: -webkit-flex; /* NEW - Chrome */
     display: flex;         /* NEW, Spec - Opera 12.1, Firefox 20+ */
     -webkit-flex-direction: column;
+    flex-direction: column;
     > li {
         -webkit-align-self: flex-end;
         list-style-type: none;
@@ -70,6 +72,7 @@ h6.title {
     display: -webkit-flex; /* NEW - Chrome */
     display: flex;         /* NEW, Spec - Opera 12.1, Firefox 20+ */
     -webkit-flex-direction: row;
+    flex-direction: row;
     border-bottom: 1px dotted $highlight;
     transition: all .12s ease-in;
     list-style-type: none;
