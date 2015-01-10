@@ -9,6 +9,7 @@
     "del": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-assetpaths": "^0.1.1",
+    "gulp-autoprefixer": "^2.0.0",
     "gulp-declare": "^0.3.0",
     "gulp-define-module": "^0.1.1",
     "gulp-handlebars": "^3.0.1",
