@@ -196,7 +196,7 @@ small, .small {
 .header p {
   font-size: 15px; }
 
-.credits {
+.credits, .ps {
   font-size: 12px; }
 
 /* Medium and Up - Targets everything larger than mobile & phablets
@@ -226,12 +226,11 @@ small, .small {
     color: #39382E;
     text-decoration: none; }
   .inner .ps {
-    margin-top: 10px;
-    font-size: 13px; }
+    margin-top: 2px; }
     .inner .ps a {
-      text-decoration: underline; }
+      text-decoration: none; }
   .inner .credits {
-    margin-top: 10px; }
+    margin-top: 20px; }
 
 h6.title {
   text-transform: uppercase;
