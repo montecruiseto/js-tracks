@@ -1,16 +1,16 @@
 @import "lib/normalize";
-@import "modules/debug";
+@import "debug";
 
 /*
    MNML by @mrmrs_
 */
 
-@import "modules/variables";
-@import "modules/queries";
+@import "variables";
+@import "queries";
 
-@import "modules/base";
-@import "modules/type";
+@import "base";
+@import "type";
 
 // Add your custom styles to this file
-@import "modules/styles";
+@import "styles";
 
