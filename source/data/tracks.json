@@ -65,5 +65,11 @@
         "author": "Eric Elliott",
         "authorUrl": "https://twitter.com/_ericelliott",
         "tag": "new"
+    }, {
+       "title": "Gonçalves",
+       "trackUrl": "http://jugoncalv.es/blog/javascript/how-to-start-with-javascript/",
+       "author": "Ju Gonçalves",
+       "authorUrl": "https://twitter.com/junspector",
+       "tag": "new"
     }]
 }
