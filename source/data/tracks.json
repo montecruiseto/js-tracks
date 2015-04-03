@@ -1,5 +1,11 @@
 {
     "tracks": [{
+        "title": "iLoveCoding.org",
+        "trackUrl": "https://iLoveCoding.org/access/free",
+        "author": "Aziz Ali",
+        "authorUrl": "https://twitter.com/ilovecodingorg"
+    },
+    {
         "title": "Bango",
         "trackUrl": "http://blog.reybango.com/2010/12/15/what-to-read-to-get-up-to-speed-in-javascript",
         "author": "Rey Bango",
