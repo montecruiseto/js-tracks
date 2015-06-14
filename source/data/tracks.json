@@ -68,7 +68,12 @@
        "title": "Gonçalves",
        "trackUrl": "http://jugoncalv.es/blog/javascript/how-to-start-with-javascript/",
        "author": "Ju Gonçalves",
-       "authorUrl": "https://twitter.com/junspector",
+       "authorUrl": "https://twitter.com/junspector"
+    }, {
+       "title": "Bahmutov",
+       "trackUrl": "http://glebbahmutov.com/blog/javascript-books/",
+       "author": "Gleb Bahmutov",
+       "authorUrl": "https://twitter.com/bahmutov",
        "tag": "new"
     }]
 }
