@@ -129,11 +129,11 @@ gulp.task('bs-reload', function() {
 
 
 /*
- * Run a deploy to github pages (run 'gulp deploy')
+ * Run a deploy to github pages (run 'gulp deploy') (DEPRECATED for SURGE DEPLOY)
  */
 
-gulp.task('deploy', function() {
-    return gulp.src(['build/**/*'])
-        .pipe(deploy());
-});
+// gulp.task('deploy', function() {
+//     return gulp.src(['build/**/*'])
+//         .pipe(deploy());
+// });
 
