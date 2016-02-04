@@ -101,7 +101,7 @@ var config = {
     server: {
         baseDir: "./build",
     },
-    browser: "google chrome canary"
+    browser: "google chrome"
 };
 
 
